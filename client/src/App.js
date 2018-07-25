@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Link, Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+import Homepage from './components/Homepage';
+import GameRoom from './components/GameRoom';
 
 
 class App extends Component {
 
   state = {
-    cardInfo: {},
     yugisDeck: [],
     kaibasDeck: []
   }
 
   componentDidMount() {
-    this.getKaibasDeck()
+
   }
 
   getYugisDeck = async () => {
@@ -31,7 +33,7 @@ class App extends Component {
       console.error(error)
     }
   }
-  
+
   getKaibasDeck = async () => {
     try {
       const res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Kaiba')
@@ -50,22 +52,28 @@ class App extends Component {
     }
   }
 
-  getCard = async (cardName) => {
-    try {
-      const cardsResponse = await axios.get('https://www.ygohub.com/api/all_cards')
-      this.setState({
-        cardInfo: cardsResponse.data
-      })
-    }
-    catch (error) {
-      console.error(error)
-    }
-  }
-
   render() {
+
+    const HomepageComponent = (props) => (
+      <Homepage {...props}
+        getKaibasDeck={() => this.getKaibasDeck()}
+        getYugisDeck={() => this.getYugisDeck()} />
+    )
+    
+    const GameRoomComponent = (props) => (
+      <GameRoom {...props} />
+    )
+    
     return (
       <div>
         <h1>app component</h1>
+        <Router>
+
+          <Switch>
+            <Route exact path='/' render={HomepageComponent} />
+            <Route exact path='/game' render={GameRoomComponent} />
+          </Switch>
+        </Router>
       </div>
     )
   }
