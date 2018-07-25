@@ -6,11 +6,19 @@ class Api::UsersController < ApplicationController
   end
 
   def create
+    @user = User.create(user_params)
+    render json: @user
   end
 
-  def update
+  def update 
   end
 
   def destroy
   end
+
+  private
+  def user_params
+    params.require(:user).permit(:userName)
+  end
+
 end
