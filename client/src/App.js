@@ -16,33 +16,35 @@ class App extends Component {
 
   getYugisDeck = async () => {
     try {
-      let res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Yugi')
-      let cards = res.data.set.language_cards["English (na)"]
-        cards.map( async (card) => {
-          let cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
-          console.log(cardRes)
-            this.setState({
-              yugisDeck: cardRes
-          })
+      const res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Yugi')
+      const cards = res.data.set.language_cards["English (na)"]
+      cards.map(async (card) => {
+        const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
+        const deckCopy = [...this.state.yugisDeck]
+        deckCopy.push(cardRes)
+        this.setState({
+          yugisDeck: deckCopy
         })
-      }
+      })
+    }
     catch (error) {
       console.error(error)
     }
   }
-
+  
   getKaibasDeck = async () => {
     try {
-      let res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Kaiba')
-      let cards = res.data.set.language_cards["English (na)"]
-        cards.map( async (card) => {
-          let cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
-          console.log(cardRes)
-            this.setState({
-              KaibasDeck: cardRes
-          })
+      const res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Kaiba')
+      const cards = res.data.set.language_cards["English (na)"]
+      cards.map(async (card) => {
+        const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
+        const deckCopy = [...this.state.kaibasDeck]
+        deckCopy.push(cardRes)
+        this.setState({
+          kaibasDeck: deckCopy
         })
-      }
+      })
+    }
     catch (error) {
       console.error(error)
     }
@@ -50,7 +52,7 @@ class App extends Component {
 
   getCard = async (cardName) => {
     try {
-      let cardsResponse = await axios.get('https://www.ygohub.com/api/all_cards')
+      const cardsResponse = await axios.get('https://www.ygohub.com/api/all_cards')
       this.setState({
         cardInfo: cardsResponse.data
       })
