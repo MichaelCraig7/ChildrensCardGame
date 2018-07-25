@@ -6,15 +6,22 @@ class Api::GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    render json: @game
+    render json: {
+      game: @game,
+      users: @game.users
+    }
   end
 
   def create
-    @game = Game.create(game_params)
-    render json: @game
+    @game = Game.create()
+    render json: {
+      game: @game,
+      users: @game.users
+    }
   end
 
   def update
+
   end
 
   def destroy

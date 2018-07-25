@@ -1,5 +1,7 @@
 class Api::CharactersController < ApplicationController
   def index
+    @characters = Character.all
+    render json: @characters
   end
 
   def show
@@ -8,6 +10,7 @@ class Api::CharactersController < ApplicationController
   end
 
   def create
+    
   end
 
   def update
