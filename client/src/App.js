@@ -11,7 +11,8 @@ class App extends Component {
     yugisDeck: [],
     kaibasDeck: [],
     createGamePressed: false,
-    characterSelected: false
+    kaibaSelected: false,
+    yugiSelected: false
   }
 
   componentDidMount() {
@@ -26,9 +27,10 @@ class App extends Component {
         const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
         const deckCopy = [...this.state.yugisDeck]
         deckCopy.push(cardRes)
-        this.setState({
-          yugisDeck: deckCopy
-        })
+        this.setState(prevState => ({
+          yugisDeck: deckCopy,
+          yugiSelected: !prevState.yugiSelected
+        }))
       })
     }
     catch (error) {
@@ -44,9 +46,10 @@ class App extends Component {
         const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
         const deckCopy = [...this.state.kaibasDeck]
         deckCopy.push(cardRes)
-        this.setState({
-          kaibasDeck: deckCopy
-        })
+        this.setState(prevState => ({
+          kaibasDeck: deckCopy,
+          kaibaSelected: !prevState.kaibaSelected
+        }))
       })
     }
     catch (error) {
@@ -69,6 +72,9 @@ class App extends Component {
 
     const HomepageComponent = (props) => (
       <Homepage {...props}
+        characterSelected={this.state.characterSelected}
+        createGamePressed={this.state.createGamePressed}
+        kaibaSelected={() => this.kaibaSelected()}
         getKaibasDeck={() => this.getKaibasDeck()}
         getYugisDeck={() => this.getYugisDeck()}
         createGame={() => this.createGame()} />
