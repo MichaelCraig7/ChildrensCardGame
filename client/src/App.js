@@ -5,11 +5,13 @@ import axios from 'axios'
 class App extends Component {
 
   state = {
-    cardInfo: {}
+    cardInfo: {},
+    yugiDeck: {},
+    kaibaDeck: {}
   }
 
   componentDidMount() {
-    
+
   }
 
   getAllCards = async () => {
