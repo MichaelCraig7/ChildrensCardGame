@@ -6,12 +6,12 @@ class App extends Component {
 
   state = {
     cardInfo: {},
-    yugiDeck: [],
-    kaibaDeck: {}
+    yugisDeck: [],
+    kaibasDeck: []
   }
 
   componentDidMount() {
-    this.getYugisDeck()
+    this.getKaibasDeck()
   }
 
   getYugisDeck = async () => {
@@ -22,7 +22,24 @@ class App extends Component {
           let cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
           console.log(cardRes)
             this.setState({
-              yugiDeck: cardRes
+              yugisDeck: cardRes
+          })
+        })
+      }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  getKaibasDeck = async () => {
+    try {
+      let res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Kaiba')
+      let cards = res.data.set.language_cards["English (na)"]
+        cards.map( async (card) => {
+          let cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
+          console.log(cardRes)
+            this.setState({
+              KaibasDeck: cardRes
           })
         })
       }
