@@ -9,7 +9,9 @@ class App extends Component {
 
   state = {
     yugisDeck: [],
-    kaibasDeck: []
+    kaibasDeck: [],
+    createGamePressed: false,
+    characterSelected: false
   }
 
   componentDidMount() {
@@ -52,12 +54,24 @@ class App extends Component {
     }
   }
 
+  createGame = async () => {
+    try {
+      this.setState(prevState => ({
+        createGamePressed: !prevState.createGamePressed
+      }))
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
   render() {
 
     const HomepageComponent = (props) => (
       <Homepage {...props}
         getKaibasDeck={() => this.getKaibasDeck()}
-        getYugisDeck={() => this.getYugisDeck()} />
+        getYugisDeck={() => this.getYugisDeck()}
+        createGame={() => this.createGame()} />
     )
     
     const GameRoomComponent = (props) => (
