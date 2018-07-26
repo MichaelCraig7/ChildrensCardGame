@@ -19,75 +19,63 @@ class App extends Component {
 
   }
 
+  createGame = () => {
+    this.setState(prevState => ({
+      createGamePressed: !prevState.createGamePressed
+    }))
+  }
+
   getYugisDeck = async () => {
-    try {
-      const res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Yugi')
-      const cards = res.data.set.language_cards["English (na)"]
-      cards.map(async (card) => {
-        const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
-        const deckCopy = [...this.state.yugisDeck]
-        deckCopy.push(cardRes)
-        this.setState({
-          yugisDeck: deckCopy,
+    if (!this.state.yugiSelected) {
+      try {
+        const res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Yugi')
+        const cards = res.data.set.language_cards["English (na)"]
+        cards.map(async (card) => {
+          const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
+          const deckCopy = [...this.state.yugisDeck]
+          deckCopy.push(cardRes)
+          this.setState({
+            yugisDeck: deckCopy,
+          })
         })
-      })
-      this.yugiDeckBoolean()
-    }
-    catch (error) {
-      console.error(error)
+        this.yugiDeckBoolean()
+      }
+      catch (error) {
+        console.error(error)
+      }
     }
   }
 
-  yugiDeckBoolean = async () => {
-    try {
-      this.setState(prevState => ({
-        yugiSelected: !prevState.yugiSelected
-      }))
-    }
-    catch (error) {
-      console.error(error)
-    }
+  yugiDeckBoolean = () => {
+    this.setState(prevState => ({
+      yugiSelected: !prevState.yugiSelected
+    }))
   }
 
   getKaibasDeck = async () => {
-    try {
-      const res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Kaiba')
-      const cards = res.data.set.language_cards["English (na)"]
-      cards.map(async (card) => {
-        const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
-        const deckCopy = [...this.state.kaibasDeck]
-        deckCopy.push(cardRes)
-        this.setState({
-          kaibasDeck: deckCopy,
+    if (!this.state.kaibaSelected)
+      try {
+        const res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Kaiba')
+        const cards = res.data.set.language_cards["English (na)"]
+        cards.map(async (card) => {
+          const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
+          const deckCopy = [...this.state.kaibasDeck]
+          deckCopy.push(cardRes)
+          this.setState({
+            kaibasDeck: deckCopy,
+          })
         })
-      })
-      this.kaibaDeckBoolean()
-    }
-    catch (error) {
-      console.error(error)
-    }
+        this.kaibaDeckBoolean()
+      }
+      catch (error) {
+        console.error(error)
+      }
   }
 
-  kaibaDeckBoolean = async () => {
-    try {
-      this.setState(prevState => ({
-        kaibaSelected: !prevState.kaibaSelected
-      }))
-    }
-    catch (error) {
-      console.error(error)
-    }
-  }
-
-  createGame = async () => {
-    try {
-      this.setState(prevState => ({
-        createGamePressed: !prevState.createGamePressed
-      }))
-    }
-    catch (error) {
-      console.error(error)
-    }
+  kaibaDeckBoolean = () => {
+    this.setState(prevState => ({
+      kaibaSelected: !prevState.kaibaSelected
+    }))
   }
 
   render() {
@@ -102,11 +90,11 @@ class App extends Component {
         getYugisDeck={() => this.getYugisDeck()}
         createGame={() => this.createGame()} />
     )
-    
+
     const GameRoomComponent = (props) => (
       <GameRoom {...props} />
     )
-    
+
     return (
       <div>
         <h1>app component</h1>
