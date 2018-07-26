@@ -3,13 +3,12 @@ import React, { Component } from 'react';
 class Challenges extends Component {
     render() {
 
-        console.log(this.props)
+        console.log(this)
 
         const challengeLoop = this.props.challengeList.map(challenge => {
             return (
                 <div key={challenge.id}>
-                    <button /* player 2 functions */></button>
-
+                    <button onClick={() => this.props.acceptGame()}>{challenge.id}</button>
                 </div>
             )
         })

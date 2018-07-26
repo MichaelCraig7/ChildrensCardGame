@@ -11,6 +11,7 @@ class App extends Component {
   state = {
     userDeck: [],
     createGamePressed: false,
+    acceptGamePressed: false,
     kaibaSelected: false,
     yugiSelected: false,
     game: {},
@@ -31,6 +32,12 @@ class App extends Component {
     }))
   }
 
+  acceptGame = () => {
+    this.setState(prevState => ({
+      acceptGamePressed: !prevState.acceptGamePressed
+    }))
+  }
+
   getDeck = async (deckName) => {
     const userDeck = await this.populateDeck(deckName)
     let yugiSelected = false
@@ -40,21 +47,33 @@ class App extends Component {
     } else if (deckName === 'Yugi') {
       yugiSelected = this.getYugiDeckBoolean()
     }
-    const game = await this.gameCreation()
-    const challengeList = await this.challengeCreation()
-    // const gameRoom = await this.gameRoomCreation()
-    const playerObject = await this.setPlayerAndRedirect()
-    this.setState({
-      userDeck,
-      kaibaSelected,
-      yugiSelected,
-      game,
-      challengeList,
-      // gameRoom,
-      playerOne: playerObject.playerOne,
-      playerTwo: playerObject.playerTwo,
-      redirectGameRoom: playerObject.redirectGameRoom
-    })
+    if (this.state.createGamePressed) {
+      const game = await this.gameCreation()
+      const challengeList = await this.challengeCreation()
+      // const gameRoom = await this.gameRoomCreation()
+      const playerObject = await this.setPlayerAndRedirect()
+      this.setState({
+        userDeck,
+        kaibaSelected,
+        yugiSelected,
+        game,
+        challengeList,
+        // gameRoom,
+        playerOne: playerObject.playerOne,
+        playerTwo: playerObject.playerTwo,
+        redirectGameRoom: playerObject.redirectGameRoom
+      })
+    } else if (this.state.acceptGamePressed) {
+      const playerObject = await this.setPlayerAndRedirect()
+      this.setState({
+        userDeck,
+        kaibaSelected,
+        yugiSelected,
+        playerOne: playerObject.playerOne,
+        playerTwo: playerObject.playerTwo,
+        redirectGameRoom: playerObject.redirectGameRoom
+      })
+    }
   }
 
   populateDeck = async (deckName) => {
@@ -159,8 +178,10 @@ class App extends Component {
       <Homepage {...props}
         characterSelected={this.state.characterSelected}
         createGamePressed={this.state.createGamePressed}
+        acceptGamePressed={this.state.acceptGamePressed}
         kaibaSelected={this.state.kaibaSelected}
         yugiSelected={this.state.yugiSelected}
+        challengeList={this.state.challengeList}
         getDeck={this.getDeck}
         createGame={this.createGame}
         challengeChecker={this.challengeChecker}
@@ -172,8 +193,10 @@ class App extends Component {
     )
 
     const ChallengesComponent = (props) => (
-      <Challenges {...props} 
-        challengeList={this.state.challengeList}  
+      <Challenges {...props}
+        challengeList={this.state.challengeList}
+        acceptGamePressed={this.state.acceptGamePressed}
+        acceptGame={this.acceptGame}
       />
     )
 
