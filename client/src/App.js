@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom'
-import Homepage from './components/Homepage';
-import GameRoom from './components/GameRoom';
-import Challenges from './components/Challenges';
+import Homepage from './components/Homepage'
+import GameRoom from './components/GameRoom'
+import Challenges from './components/Challenges'
 
 
 class App extends Component {

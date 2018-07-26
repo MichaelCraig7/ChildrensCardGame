@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { } from 'react-router-dom'
-import Challenges from './Challenges';
+import Challenges from './Challenges'
 
 class Homepage extends Component {
 
@@ -42,4 +42,4 @@ class Homepage extends Component {
     }
 }
 
-export default Homepage;
+export default Homepage

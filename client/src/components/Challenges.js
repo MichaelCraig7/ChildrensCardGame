@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class Challenges extends Component {
     render() {
@@ -22,4 +22,4 @@ class Challenges extends Component {
     }
 }
 
-export default Challenges;
+export default Challenges

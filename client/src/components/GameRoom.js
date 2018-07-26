@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class GameRoom extends Component {
     render() {
@@ -10,4 +10,4 @@ class GameRoom extends Component {
     }
 }
 
-export default GameRoom;
+export default GameRoom
