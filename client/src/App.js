@@ -14,7 +14,7 @@ class App extends Component {
     kaibaSelected: false,
     yugiSelected: false,
     game: {},
-    challengeList: {},
+    challengeList: [],
     gameRoom: {},
     playerOne: false,
     playerTwo: false,
@@ -30,34 +30,6 @@ class App extends Component {
       createGamePressed: !prevState.createGamePressed
     }))
   }
-
-  // getYugisDeck = async () => {
-  //   if (!this.state.yugiSelected && this.state.userDeck.length === 0) {
-  //     try {
-  //       const res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Yugi')
-  //       const cards = res.data.set.language_cards["English (na)"]
-  //       cards.map(async (card) => {
-  //         const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
-  //         const deckCopy = [...this.state.userDeck]
-  //         deckCopy.push(cardRes)
-  //         this.setState({
-  //           userDeck: deckCopy,
-  //         })
-  //       })
-  //     }
-  //     catch (error) {
-  //       console.error(error)
-  //     }
-  //   }
-  //   this.yugiDeckBoolean()
-  // }
-
-  // yugiDeckBoolean = () => {
-  //   this.setState(prevState => ({
-  //     yugiSelected: !prevState.yugiSelected
-  //   }))
-  //   this.toGameRoom()
-  // }
 
   getDeck = async (deckName) => {
     const userDeck = await this.populateDeck(deckName)
@@ -87,7 +59,6 @@ class App extends Component {
 
   populateDeck = async (deckName) => {
     if (this.state.userDeck.length === 0) {
-      let deck = []
       try {
         const res = await axios.get(`https://www.ygohub.com/api/set_info?name=Starter Deck: ${deckName}`)
         const cards = res.data.set.language_cards["English (na)"]
@@ -132,7 +103,7 @@ class App extends Component {
       try {
         const challengeList = await axios.get('/api/games')
         this.setState({
-          challengeList
+          challengeList: challengeList.data
         })
       }
       catch (error) {
@@ -201,7 +172,9 @@ class App extends Component {
     )
 
     const ChallengesComponent = (props) => (
-      <Challenges {...props} />
+      <Challenges {...props} 
+        challengeList={this.state.challengeList}  
+      />
     )
 
     return (
@@ -213,7 +186,7 @@ class App extends Component {
 
           <Switch>
             <Route exact path='/' render={HomepageComponent} />
-            <Route exact path='/gameroom' render={ChallengesComponent} />
+            <Route path='/challenges' render={ChallengesComponent} />
             <Route path='/gameroom/:id' render={GameRoomComponent} />
           </Switch>
         </div>
