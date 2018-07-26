@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { } from 'react-router-dom'
 
 class Homepage extends Component {
 
@@ -10,12 +10,13 @@ class Homepage extends Component {
                 {this.props.createGamePressed
                     ?
                     <div>
-                        <button onClick={() => this.props.getKaibasDeck()}>Kaiba</button>
-                        <button onClick={() => this.props.getYugisDeck()}>Yugi</button>
+                        <button onClick={() => this.props.getDeck('Kaiba')}>Kaiba</button>
+                        <button onClick={() => this.props.getDeck('Yugi')}>Yugi</button>
                     </div>
                     :
                     <button onClick={() => this.props.createGame()}>Create Game</button>
                 }
+                <button onClick={() => this.props.challengeChecker()}>Challengers</button>
             </div>
         );
     }
