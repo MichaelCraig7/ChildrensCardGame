@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link, Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+import { Link, Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom'
 import Homepage from './components/Homepage';
 import GameRoom from './components/GameRoom';
 
@@ -75,6 +75,22 @@ class App extends Component {
     this.setState(prevState => ({
       kaibaSelected: !prevState.kaibaSelected
     }))
+    this.toGameRoom()
+  }
+
+  toGameRoom = () => {
+    if (this.state.createGamePressed) {
+      this.setState({
+        playerOne: true,
+        redirect: true
+      })
+    }
+    else if (!this.state.createGamePressed) {
+      this.setState({
+        playerTwo: true,
+        redirect: true
+      })
+    }
   }
 
   render() {
@@ -93,6 +109,10 @@ class App extends Component {
     const GameRoomComponent = (props) => (
       <GameRoom {...props} />
     )
+
+    if (this.state.redirect) {
+      return <Router><Redirect push to="/gameroom" /></Router>;
+    }
 
     return (
       <div>
