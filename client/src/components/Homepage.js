@@ -4,20 +4,28 @@ import { } from 'react-router-dom'
 class Homepage extends Component {
 
     render() {
+
+        const x = this.props
+        
         return (
             <div>
                 <h1>Homepage</h1>
-                {this.props.createGamePressed
+                <button onClick={() => x.challengeChecker()}>Challenges</button>
+                {x.createGamePressed
                     ?
                     <div>
-                        <button onClick={() => this.props.getDeck('Kaiba')}>Kaiba</button>
-                        <button onClick={() => this.props.getDeck('Yugi')}>Yugi</button>
+                        <button onClick={() => x.getDeck('Kaiba')}>Kaiba</button>
+                        <button onClick={() => x.getDeck('Yugi')}>Yugi</button>
                     </div>
                     :
-                    <button onClick={() => this.props.createGame()}>Create Game</button>
+                    <button onClick={() => x.createGame()}>Create Game</button>
                 }
-                <button onClick={() => this.props.challengeChecker()}>Challengers</button>
-            </div>
+                {/* {x.userDeck === 0
+                    ?
+                    :
+                    null
+                } */}
+            </div >
         );
     }
 }

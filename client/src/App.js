@@ -56,7 +56,7 @@ class App extends Component {
   // }
 
   getDeck = async (deckName) => {
-    const userDeck = await this.fetchDeck(deckName)
+    const userDeck = await this.populateDeck(deckName)
     let yugiSelected = false
     let kaibaSelected = false
     if (deckName === 'Kaiba') {
@@ -64,7 +64,7 @@ class App extends Component {
     } else if (deckName === 'Yugi') {
       yugiSelected = this.getYugiDeckBoolean()
     }
-    const playerObject = this.toGameRoom()
+    const playerObject = this.setPlayerAndRedirect()
     this.setState({
       userDeck,
       kaibaSelected,
@@ -75,7 +75,7 @@ class App extends Component {
     })
   }
 
-  fetchDeck = async (deckName) => {
+  populateDeck = async (deckName) => {
     if (this.state.userDeck.length === 0) {
       let deck = []
       try {
@@ -107,7 +107,7 @@ class App extends Component {
     return !this.state.yugiSelected
   }
 
-  toGameRoom = () => {
+  setPlayerAndRedirect = () => {
     const playerObject = {}
     if (this.state.createGamePressed) {
       // axios.post('/api/games')
