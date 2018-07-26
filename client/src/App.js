@@ -37,12 +37,12 @@ class App extends Component {
             userDeck: deckCopy,
           })
         })
-        this.yugiDeckBoolean()
       }
       catch (error) {
         console.error(error)
       }
     }
+    this.yugiDeckBoolean()
   }
 
   yugiDeckBoolean = () => {
@@ -53,7 +53,7 @@ class App extends Component {
   }
 
   getKaibasDeck = async () => {
-    if (!this.state.kaibaSelected && this.state.userDeck.length === 0)
+    if (!this.state.kaibaSelected && this.state.userDeck.length === 0) {
       try {
         const res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Kaiba')
         const cards = res.data.set.language_cards["English (na)"]
@@ -65,11 +65,12 @@ class App extends Component {
             userDeck: deckCopy,
           })
         })
-        this.kaibaDeckBoolean()
       }
       catch (error) {
         console.error(error)
       }
+    }
+    this.kaibaDeckBoolean()
   }
 
   kaibaDeckBoolean = () => {
