@@ -27,11 +27,22 @@ class App extends Component {
         const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
         const deckCopy = [...this.state.yugisDeck]
         deckCopy.push(cardRes)
-        this.setState(prevState => ({
+        this.setState({
           yugisDeck: deckCopy,
-          yugiSelected: !prevState.yugiSelected
-        }))
+        })
       })
+      this.yugiDeckBoolean()
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  yugiDeckBoolean = async () => {
+    try {
+      this.setState(prevState => ({
+        yugiSelected: !prevState.yugiSelected
+      }))
     }
     catch (error) {
       console.error(error)
@@ -46,11 +57,22 @@ class App extends Component {
         const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
         const deckCopy = [...this.state.kaibasDeck]
         deckCopy.push(cardRes)
-        this.setState(prevState => ({
+        this.setState({
           kaibasDeck: deckCopy,
-          kaibaSelected: !prevState.kaibaSelected
-        }))
+        })
       })
+      this.kaibaDeckBoolean()
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  kaibaDeckBoolean = async () => {
+    try {
+      this.setState(prevState => ({
+        kaibaSelected: !prevState.kaibaSelected
+      }))
     }
     catch (error) {
       console.error(error)
@@ -74,7 +96,8 @@ class App extends Component {
       <Homepage {...props}
         characterSelected={this.state.characterSelected}
         createGamePressed={this.state.createGamePressed}
-        kaibaSelected={() => this.kaibaSelected()}
+        kaibaSelected={this.state.kaibaSelected}
+        yugiSelected={this.state.yugiSelected}
         getKaibasDeck={() => this.getKaibasDeck()}
         getYugisDeck={() => this.getYugisDeck()}
         createGame={() => this.createGame()} />
