@@ -49,6 +49,7 @@ class App extends Component {
     this.setState(prevState => ({
       yugiSelected: !prevState.yugiSelected
     }))
+    this.toGameRoom()
   }
 
   getKaibasDeck = async () => {
