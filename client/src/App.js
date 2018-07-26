@@ -8,8 +8,7 @@ import GameRoom from './components/GameRoom';
 class App extends Component {
 
   state = {
-    yugisDeck: [],
-    kaibasDeck: [],
+    userDeck: [],
     createGamePressed: false,
     kaibaSelected: false,
     yugiSelected: false
@@ -26,16 +25,16 @@ class App extends Component {
   }
 
   getYugisDeck = async () => {
-    if (!this.state.yugiSelected) {
+    if (!this.state.yugiSelected && this.state.userDeck.length === 0) {
       try {
         const res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Yugi')
         const cards = res.data.set.language_cards["English (na)"]
         cards.map(async (card) => {
           const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
-          const deckCopy = [...this.state.yugisDeck]
+          const deckCopy = [...this.state.userDeck]
           deckCopy.push(cardRes)
           this.setState({
-            yugisDeck: deckCopy,
+            userDeck: deckCopy,
           })
         })
         this.yugiDeckBoolean()
@@ -53,16 +52,16 @@ class App extends Component {
   }
 
   getKaibasDeck = async () => {
-    if (!this.state.kaibaSelected)
+    if (!this.state.kaibaSelected && this.state.userDeck.length === 0)
       try {
         const res = await axios.get('https://www.ygohub.com/api/set_info?name=Starter Deck: Kaiba')
         const cards = res.data.set.language_cards["English (na)"]
         cards.map(async (card) => {
           const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
-          const deckCopy = [...this.state.kaibasDeck]
+          const deckCopy = [...this.state.userDeck]
           deckCopy.push(cardRes)
           this.setState({
-            kaibasDeck: deckCopy,
+            userDeck: deckCopy,
           })
         })
         this.kaibaDeckBoolean()
