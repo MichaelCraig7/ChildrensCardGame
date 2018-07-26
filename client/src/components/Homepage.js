@@ -20,11 +20,12 @@ class Homepage extends Component {
                     :
                     <button onClick={() => x.createGame()}>Create Game</button>
                 }
-                {/* {x.userDeck === 0
+                {x.userDeck === 0 && x.game
                     ?
+                    <button onClick={() => x.issueChallenge()}>Issue Challenge</button>
                     :
                     null
-                } */}
+                }
             </div >
         );
     }
