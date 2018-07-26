@@ -14,7 +14,7 @@ class App extends Component {
     kaibaSelected: false,
     yugiSelected: false,
     game: {},
-    challengeList: [],
+    challengeList: {},
     gameRoom: {},
     playerOne: false,
     playerTwo: false,
@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-
+    this.challengeCreation()
   }
 
   createGame = () => {
@@ -70,7 +70,7 @@ class App extends Component {
     }
     const game = await this.gameCreation()
     const challengeList = await this.challengeCreation()
-    const gameRoom = await this.gameRoomCreation()
+    // const gameRoom = await this.gameRoomCreation()
     const playerObject = await this.setPlayerAndRedirect()
     this.setState({
       userDeck,
@@ -78,7 +78,7 @@ class App extends Component {
       yugiSelected,
       game,
       challengeList,
-      gameRoom,
+      // gameRoom,
       playerOne: playerObject.playerOne,
       playerTwo: playerObject.playerTwo,
       redirectGameRoom: playerObject.redirectGameRoom
@@ -128,27 +128,39 @@ class App extends Component {
   }
 
   challengeCreation = async () => {
-    let challenges = []
-    try {
-      const getChallenges = await axios.get('/api/games')
-      challenges.push(getChallenges)
-      return challenges
-    }
-    catch (error) {
-      console.error(error)
+    if (!this.state.createGamePressed) {
+      try {
+        const challengeList = await axios.get('/api/games')
+        this.setState({
+          challengeList
+        })
+      }
+      catch (error) {
+        console.error(error)
+      }
+    } else {
+      let challenges = []
+      try {
+        const getChallenges = await axios.get('/api/games')
+        challenges.push(getChallenges)
+        return challenges
+      }
+      catch (error) {
+        console.error(error)
+      }
     }
   }
 
-  gameRoomCreation = async () => {
-    try {
-      const gameId = this.state.game.data.game.id
-      const viewGame = await axios.get(`/api/games/${gameId}`)
-      return viewGame
-    }
-    catch (error) {
-      console.error(error)
-    }
-  }
+  // gameRoomCreation = async () => {
+  //   try {
+  //     const gameId = this.state.game.data.game.id
+  //     const viewGame = await axios.get(`/api/games/${gameId}`)
+  //     return viewGame
+  //   }
+  //   catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   setPlayerAndRedirect = () => {
     const playerObject = {}
