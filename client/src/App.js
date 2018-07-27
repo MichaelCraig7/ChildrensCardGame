@@ -33,6 +33,7 @@ class App extends Component {
   }
 
   acceptGame = () => {
+    console.log('what')
     this.setState(prevState => ({
       acceptGamePressed: !prevState.acceptGamePressed
     }))
@@ -185,19 +186,12 @@ class App extends Component {
         getDeck={this.getDeck}
         createGame={this.createGame}
         challengeChecker={this.challengeChecker}
+        acceptGame={this.acceptGame}
       />
     )
 
     const GameRoomComponent = (props) => (
       <GameRoom {...props} />
-    )
-
-    const ChallengesComponent = (props) => (
-      <Challenges {...props}
-        challengeList={this.state.challengeList}
-        acceptGamePressed={this.state.acceptGamePressed}
-        acceptGame={this.acceptGame}
-      />
     )
 
     return (
@@ -209,7 +203,6 @@ class App extends Component {
 
           <Switch>
             <Route exact path='/' render={HomepageComponent} />
-            <Route path='/challenges' render={ChallengesComponent} />
             <Route path='/gameroom/:id' render={GameRoomComponent} />
           </Switch>
         </div>

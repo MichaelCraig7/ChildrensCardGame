@@ -12,7 +12,10 @@ class Homepage extends Component {
             <div>
                 <h1>Homepage</h1>
                 <button onClick={() => x.challengeChecker()}>Challenges</button>
-                <Challenges challengeList={this.props.challengeList} />
+                <Challenges
+                    challengeList={this.props.challengeList}
+                    acceptGame={this.props.acceptGame}
+                />
                 {x.createGamePressed
                     ?
                     <div>
