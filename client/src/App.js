@@ -33,14 +33,11 @@ class App extends Component {
     }))
   }
 
-  acceptGame = (id) => {
-    console.log(id);
-    
+  acceptGame = (challengeId) => {    
     this.setState({
       acceptGamePressed: !this.state.acceptGamePressed,
-      gameId: id
+      gameId: challengeId
     })
-    console.log('acceptGame***', this.state.gameId)
   }
 
   getDeck = async (deckName) => {
@@ -57,6 +54,8 @@ class App extends Component {
       const challengeList = await this.challengeCreation()
       // const gameRoom = await this.gameRoomCreation()
       const playerObject = await this.setPlayerAndRedirect()
+      console.log(game);
+      
       this.setState({
         userDeck,
         kaibaSelected,
@@ -68,7 +67,6 @@ class App extends Component {
         playerTwo: playerObject.playerTwo,
         redirectGameRoom: playerObject.redirectGameRoom
       })
-      console.log('1', this.state);
     } else if (this.state.acceptGamePressed) {
       
       const playerObject = await this.setPlayerAndRedirect()
@@ -80,7 +78,6 @@ class App extends Component {
         playerTwo: playerObject.playerTwo,
         redirectGameRoomP2: playerObject.redirectGameRoomP2
       })
-      console.log('2222222222',this);
     }
   }
 
@@ -89,14 +86,12 @@ class App extends Component {
       try {
         const res = await axios.get(`https://www.ygohub.com/api/set_info?name=Starter Deck: ${deckName}`)
         const cards = res.data.set.language_cards["English (na)"]
-        console.log(cards)
         const deckPromise = cards.map(async (card) => {
           const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
-          console.log(cardRes.data)
           return cardRes.data
         })
         const resolved = await Promise.all(deckPromise)
-        console.log(resolved)
+        // console.log(resolved)
         return resolved
       }
       catch (error) {
