@@ -14,6 +14,7 @@ class App extends Component {
     acceptGamePressed: false,
     kaibaSelected: false,
     yugiSelected: false,
+    gameId: 0,
     game: {},
     challengeList: [],
     gameRoom: {},
@@ -32,11 +33,14 @@ class App extends Component {
     }))
   }
 
-  acceptGame = () => {
-    console.log('what')
-    this.setState(prevState => ({
-      acceptGamePressed: !prevState.acceptGamePressed
-    }))
+  acceptGame = (id) => {
+    console.log(id);
+    
+    this.setState({
+      acceptGamePressed: !this.state.acceptGamePressed,
+      gameId: id
+    })
+    console.log('acceptGame***', this.state.gameId)
   }
 
   getDeck = async (deckName) => {
@@ -64,7 +68,9 @@ class App extends Component {
         playerTwo: playerObject.playerTwo,
         redirectGameRoom: playerObject.redirectGameRoom
       })
+      console.log('1', this.state);
     } else if (this.state.acceptGamePressed) {
+      
       const playerObject = await this.setPlayerAndRedirect()
       this.setState({
         userDeck,
@@ -72,8 +78,9 @@ class App extends Component {
         yugiSelected,
         playerOne: playerObject.playerOne,
         playerTwo: playerObject.playerTwo,
-        redirectGameRoom: playerObject.redirectGameRoom
+        redirectGameRoomP2: playerObject.redirectGameRoomP2
       })
+      console.log('2222222222',this);
     }
   }
 
@@ -162,7 +169,7 @@ class App extends Component {
     } else if (!this.state.createGamePressed) {
       playerObject.playerOne = false
       playerObject.playerTwo = true
-      playerObject.redirectGameRoom = true
+      playerObject.redirectGameRoomP2 = true
     }
     return playerObject
   }
@@ -199,6 +206,7 @@ class App extends Component {
         <div>
           <h1>app component</h1>
           {this.state.redirectGameRoom ? <Redirect push to={`/gameroom/${this.state.game.data.game.id}`} /> : null}
+          {this.state.redirectGameRoomP2 ? <Redirect push to={`/gameroom/${this.state.gameId}`} /> : null}
           {this.state.redirectHomepage ? <Redirect push to='/' /> : null}
 
           <Switch>
