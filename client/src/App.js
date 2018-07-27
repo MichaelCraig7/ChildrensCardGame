@@ -3,8 +3,6 @@ import axios from 'axios'
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom'
 import Homepage from './components/Homepage'
 import GameRoom from './components/GameRoom'
-import Challenges from './components/Challenges'
-
 
 class App extends Component {
 
@@ -28,12 +26,10 @@ class App extends Component {
   }
 
   createGame = () => {
-    this.setState(prevState => ({
-      createGamePressed: !prevState.createGamePressed
-    }))
+    this.setState({ createGamePressed: !this.state.createGamePressed })
   }
 
-  acceptGame = (challengeId) => {    
+  acceptGame = (challengeId) => {
     this.setState({
       acceptGamePressed: !this.state.acceptGamePressed,
       gameId: challengeId
@@ -54,8 +50,6 @@ class App extends Component {
       const challengeList = await this.challengeCreation()
       // const gameRoom = await this.gameRoomCreation()
       const playerObject = await this.setPlayerAndRedirect()
-      console.log(game);
-      
       this.setState({
         userDeck,
         kaibaSelected,
@@ -68,7 +62,6 @@ class App extends Component {
         redirectGameRoom: playerObject.redirectGameRoom
       })
     } else if (this.state.acceptGamePressed) {
-      
       const playerObject = await this.setPlayerAndRedirect()
       this.setState({
         userDeck,
@@ -91,7 +84,6 @@ class App extends Component {
           return cardRes.data
         })
         const resolved = await Promise.all(deckPromise)
-        // console.log(resolved)
         return resolved
       }
       catch (error) {
@@ -112,7 +104,7 @@ class App extends Component {
 
   gameCreation = async () => {
     try {
-      const createGame = await axios.post('/api/games')
+      const createGame = await axios.post('/api/games', )
       return createGame
     }
     catch (error) {
@@ -124,9 +116,7 @@ class App extends Component {
     if (!this.state.createGamePressed) {
       try {
         const challengeList = await axios.get('/api/games')
-        this.setState({
-          challengeList: challengeList.data
-        })
+        this.setState({ challengeList: challengeList.data })
       }
       catch (error) {
         console.error(error)
