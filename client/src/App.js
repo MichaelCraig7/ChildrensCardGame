@@ -190,11 +190,9 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <h1>app component</h1>
           {this.state.redirectGameRoom ? <Redirect push to={`/gameroom/${this.state.game.data.game.id}`} /> : null}
           {this.state.redirectGameRoomP2 ? <Redirect push to={`/gameroom/${this.state.gameId}`} /> : null}
           {this.state.redirectHomepage ? <Redirect push to='/' /> : null}
-
           <Switch>
             <Route exact path='/' render={HomepageComponent} />
             <Route path='/gameroom/:id' render={GameRoomComponent} />

@@ -1,4 +1,9 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
+
+const ChallengesWrapper = styled.div`
+
+`
 
 class Challenges extends Component {
     
@@ -7,16 +12,15 @@ class Challenges extends Component {
         const challengeLoop = this.props.challengeList.map(challenge => {
             return (
                 <div key={challenge.id}>
-                    <button onClick={() => this.props.acceptGame(challenge.id)}>{challenge.id}</button>
+                    <button onClick={() => this.props.acceptGame(challenge.id)}>Game {challenge.id}</button>
                 </div>
             )
         })
 
         return (
-            <div>
-                <div>Challenge Mapper</div>
+            <ChallengesWrapper>
                 <div>{challengeLoop}</div>
-            </div>
+            </ChallengesWrapper>
         );
     }
 }
