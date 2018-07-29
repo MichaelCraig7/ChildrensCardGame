@@ -3,9 +3,9 @@ import { } from 'react-router-dom'
 import Challenges from './Challenges'
 
 class Homepage extends Component {
-
+    
     render() {
-
+        
         const x = this.props
 
         return (

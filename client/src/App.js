@@ -160,6 +160,7 @@ class App extends Component {
   }
 
   challengeChecker = () => {
+    this.forceUpdate()
     this.setState({
       updateChallengersList: !this.state.updateChallengersList
     })
