@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { } from 'react-router-dom'
 import Challenges from './Challenges'
 import styled from 'styled-components'
+import GameRoom from './GameRoom';
 
 const HomepageWrapper = styled.div`
     background: rgb(216, 216, 216);
@@ -12,8 +13,6 @@ grid-template-areas:
 'body2 body2 body2 body2 body2'
 'body3 body3 body3 body3 body3'
 'body4 body4 body4 body4 body4';
-/* grid-template: 6vh 43vh 5vh 43vh 3vh / repeat(3, 1fr) 1vw 1fr 1fr 1vw repeat(3, 1fr); */
-
 `
 
 const CharacterSelect = styled.div`
@@ -22,13 +21,6 @@ const CharacterSelect = styled.div`
 
 const CreateGameAndLoop = styled.div`
     grid-area: body2;
-    /* grid-gap: 2vw; */
-    /* div {
-        grid-area: body4;
-        display: inline-block;
-        align-self: center;
-        text-align: center;
-    } */
     .challengeBtns {
         background: #f1f1f1
     }
@@ -61,6 +53,10 @@ const RightBox = styled.div`
 class Homepage extends Component {
 
     render() {
+
+        // const ChallengesComponent = (props) => {
+        //     <Challenges {...props} />
+        // }
 
         const x = this.props
 

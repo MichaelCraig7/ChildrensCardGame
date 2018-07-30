@@ -19,6 +19,7 @@ class App extends Component {
     gameRoom: {},
     playerOne: false,
     playerTwo: false,
+    p2Info: {},
     redirectGameRoom: false
   }
 
@@ -52,7 +53,7 @@ class App extends Component {
     if (this.state.createGamePressed) {
       const game = await this.gameCreation()
       const challengeList = await this.challengeCreation()
-      // const gameRoom = await this.gameRoomCreation()
+      const gameRoom = await this.gameRoomCreation()
       const playerObject = await this.setPlayerAndRedirect()
       this.setState({
         userDeck,
@@ -60,12 +61,13 @@ class App extends Component {
         yugiSelected,
         game,
         challengeList,
-        // gameRoom,
+        gameRoom,
         playerOne: playerObject.playerOne,
         playerTwo: playerObject.playerTwo,
         redirectGameRoom: playerObject.redirectGameRoom
       })
     } else if (this.state.acceptGamePressed) {
+      const p2Info = await this.p2Info()
       const playerObject = await this.setPlayerAndRedirect()
       this.setState({
         userDeck,
@@ -73,6 +75,7 @@ class App extends Component {
         yugiSelected,
         playerOne: playerObject.playerOne,
         playerTwo: playerObject.playerTwo,
+        p2Info,
         redirectGameRoomP2: playerObject.redirectGameRoomP2
       })
     }
@@ -117,7 +120,6 @@ class App extends Component {
       const createGame = await axios.post('/api/games/1/gamerooms', {
         user_id: id,
         p1_life_points: 4000,
-        p2_life_points: 4000,
       })
       return createGame
     }
@@ -148,16 +150,16 @@ class App extends Component {
     }
   }
 
-  // gameRoomCreation = async () => {
-  //   try {
-  //     const gameId = this.state.game.data.game.id
-  //     const viewGame = await axios.get(`/api/games/${gameId}`)
-  //     return viewGame
-  //   }
-  //   catch (error) {
-  //     console.error(error)
-  //   }
-  // }
+  gameRoomCreation = async () => {
+    try {
+      const gameId = this.state.gameNum + 1
+      const viewGame = await axios.get(`/api/games/1/gamerooms/${gameId}`)
+      return viewGame
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
 
   setPlayerAndRedirect = () => {
     const playerObject = {}
@@ -173,11 +175,23 @@ class App extends Component {
     return playerObject
   }
 
+  p2Info = async () => {
+    const gameId = this.state.gameNum + 1
+    const p2Information = await axios.patch(`/api/games/1/gamerooms/${gameId}`, {
+      userId: 2,
+      p2_life_points: 4000
+    })
+    return p2Information
+  }
+
   challengeChecker = () => {
-    this.forceUpdate()
     this.setState({
       updateChallengersList: !this.state.updateChallengersList
     })
+  }
+
+  buttonTest = () => {
+    
   }
 
   render() {
@@ -194,11 +208,13 @@ class App extends Component {
         createGame={this.createGame}
         challengeChecker={this.challengeChecker}
         acceptGame={this.acceptGame}
+        buttonTest={this.props.buttonTest}
       />
     )
 
     const GameRoomComponent = (props) => (
-      <GameRoom {...props} />
+      <GameRoom {...props} 
+        buttonTest={this.buttonTest}/>
     )
 
     return (

@@ -20,6 +20,7 @@ class GameRoom extends Component {
                     <div>card1</div>
                     <div>card2</div>
                 </div>
+                <button onClick={() => this.props.buttonTest()}></button>
             </Field>
         );
     }
