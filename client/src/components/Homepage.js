@@ -13,27 +13,43 @@ const CharacterSelect = styled.div`
 `
 
 const CreateGameAndLoop = styled.div`
-    display: flex;
     display: grid;
-    grid-template: repeat(2, 48vh) / repeat(8, 1fr);
-    grid-gap: 2vw;
+    grid-template: 6vh 43vh 5vh 43vh 3vh / repeat(3, 1fr) 1vw 1fr 1fr 1vw repeat(3, 1fr);
+    /* grid-gap: 2vw; */
     div {
-        grid-area: 1 / 3 / span 1 / span 4;
+        grid-area: 2 / 2 / span 1 / span 8;
         display: inline-block;
         align-self: center;
         text-align: center;
     }
-    .createGame button{
-        background: indianred;
-        border-radius: 5px;
-        font-size: -webkit-xxx-large;
-        box-shadow: 1.5px 3px #888888;
+    .challengeBtns {
+        background: #f1f1f1
+    }
+    .challengeBtns button{
+        background: #f1f1f1;
+        border: none;
+        outline: none;
     }
     .createGame {
-        grid-area: 2 / 4 / span 2 / span 2;
+        grid-area: 3 / 5 / span 2 / span 2;
         align-self: center;
         text-align: center;
+        background: #f1f1f1;
     }
+    .createGame button{
+        background: #f1f1f1;
+        outline: none;
+        border: none;
+        font-size: -webkit-xxx-large;
+    }
+`
+
+const LeftBox = styled.div`
+    grid-area: 4 / 2 / span 1 / span 2;
+`
+
+const RightBox = styled.div`
+    grid-area: 4 / 6 / span 1 / span 2;
 `
 
 class Homepage extends Component {
@@ -59,14 +75,16 @@ class Homepage extends Component {
                                     challengeList={this.props.challengeList}
                                     acceptGame={this.props.acceptGame}
                                 />
-                            </div>
                                 <button onClick={() => x.challengeChecker()}>Update Challenges</button>
+                            </div>
                             <div className='createGame'>
                                 <button className='createGameBtn' onClick={() => x.createGame()}>Create Game</button>
                             </div>
                         </CreateGameAndLoop>
                     }
                 </div>
+
+                <LeftBox><h1>sdasda</h1></LeftBox>
 
                 <div>
                     {x.acceptGamePressed
@@ -80,6 +98,8 @@ class Homepage extends Component {
                         null
                     }
                 </div>
+
+                <RightBox>greasga</RightBox>
             </HomepageWrapper>
         );
     }
