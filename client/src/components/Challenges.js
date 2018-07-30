@@ -1,9 +1,4 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
-
-const ChallengesWrapper = styled.div`
-
-`
 
 class Challenges extends Component {
     
@@ -18,9 +13,9 @@ class Challenges extends Component {
         })
 
         return (
-            <ChallengesWrapper>
+            <div>
                 <div>{challengeLoop}</div>
-            </ChallengesWrapper>
+            </div>
         );
     }
 }

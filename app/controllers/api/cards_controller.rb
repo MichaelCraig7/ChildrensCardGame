@@ -10,7 +10,7 @@ class Api::CardsController < ApplicationController
   end
 
   def create
-    @card = Card.create()
+    @card = Card.create!()
     render json: @card
   end
 

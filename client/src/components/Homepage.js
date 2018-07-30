@@ -5,6 +5,14 @@ import styled from 'styled-components'
 
 const HomepageWrapper = styled.div`
     background: rgb(216, 216, 216);
+display: grid;
+grid-gap: 2vw;
+grid-template-areas:
+'body1 body1 body1 body1 body1'
+'body2 body2 body2 body2 body2'
+'body3 body3 body3 body3 body3'
+'body4 body4 body4 body4 body4';
+/* grid-template: 6vh 43vh 5vh 43vh 3vh / repeat(3, 1fr) 1vw 1fr 1fr 1vw repeat(3, 1fr); */
 
 `
 
@@ -13,15 +21,14 @@ const CharacterSelect = styled.div`
 `
 
 const CreateGameAndLoop = styled.div`
-    display: grid;
-    grid-template: 6vh 43vh 5vh 43vh 3vh / repeat(3, 1fr) 1vw 1fr 1fr 1vw repeat(3, 1fr);
+    grid-area: body2;
     /* grid-gap: 2vw; */
-    div {
-        grid-area: 2 / 2 / span 1 / span 8;
+    /* div {
+        grid-area: body4;
         display: inline-block;
         align-self: center;
         text-align: center;
-    }
+    } */
     .challengeBtns {
         background: #f1f1f1
     }
@@ -31,7 +38,6 @@ const CreateGameAndLoop = styled.div`
         outline: none;
     }
     .createGame {
-        grid-area: 3 / 5 / span 2 / span 2;
         align-self: center;
         text-align: center;
         background: #f1f1f1;
@@ -45,11 +51,11 @@ const CreateGameAndLoop = styled.div`
 `
 
 const LeftBox = styled.div`
-    grid-area: 4 / 2 / span 1 / span 2;
+    grid-area: body4;
 `
 
 const RightBox = styled.div`
-    grid-area: 4 / 6 / span 1 / span 2;
+    grid-area: body3;
 `
 
 class Homepage extends Component {
@@ -60,7 +66,7 @@ class Homepage extends Component {
 
         return (
             <HomepageWrapper>
-                <div>
+                <CreateGameAndLoop>
                     {x.createGamePressed
                         ?
                         <CharacterSelect>
@@ -69,7 +75,7 @@ class Homepage extends Component {
                             <button onClick={() => x.getDeck('Yugi')}>Yugi</button>
                         </CharacterSelect>
                         :
-                        <CreateGameAndLoop>
+                        <div>
                             <div className='challengeBtns'>
                                 <Challenges
                                     challengeList={this.props.challengeList}
@@ -80,9 +86,9 @@ class Homepage extends Component {
                             <div className='createGame'>
                                 <button className='createGameBtn' onClick={() => x.createGame()}>Create Game</button>
                             </div>
-                        </CreateGameAndLoop>
+                        </div>
                     }
-                </div>
+                </CreateGameAndLoop>
 
                 <LeftBox><h1>sdasda</h1></LeftBox>
 

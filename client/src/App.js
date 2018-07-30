@@ -13,6 +13,7 @@ class App extends Component {
     kaibaSelected: false,
     yugiSelected: false,
     gameId: 0,
+    gameNum: 0,
     game: {},
     challengeList: [],
     gameRoom: {},
@@ -26,7 +27,10 @@ class App extends Component {
   }
 
   createGame = () => {
-    this.setState({ createGamePressed: !this.state.createGamePressed })
+    this.setState({ 
+      createGamePressed: !this.state.createGamePressed,
+      gameNum: this.state.challengeList.length
+    })
   }
 
   acceptGame = (challengeId) => {
@@ -86,13 +90,13 @@ class App extends Component {
         const resolved = await Promise.all(deckPromise)
         return resolved
       }
-      catch (error) {
-        console.error(error)
+        catch (error) {
+          console.error(error)
+        }
+      } else {
+        return []
       }
-    } else {
-      return []
     }
-  }
 
   getKaibaDeckBoolean = () => {
     return (!this.state.kaibaSelected)
@@ -103,8 +107,18 @@ class App extends Component {
   }
 
   gameCreation = async () => {
+    let id
+    if (this.state.createGamePressed) {
+      id = 1
+    } else {
+      id = 2
+    }
     try {
-      const createGame = await axios.post('/api/games', )
+      const createGame = await axios.post('/api/games/1/gamerooms', {
+        user_id: id,
+        p1_life_points: 4000,
+        p2_life_points: 4000,
+      })
       return createGame
     }
     catch (error) {
@@ -115,7 +129,7 @@ class App extends Component {
   challengeCreation = async () => {
     if (!this.state.createGamePressed) {
       try {
-        const challengeList = await axios.get('/api/games')
+        const challengeList = await axios.get('/api/games/1/gamerooms')
         this.setState({ challengeList: challengeList.data })
       }
       catch (error) {
@@ -124,7 +138,7 @@ class App extends Component {
     } else {
       let challenges = []
       try {
-        const getChallenges = await axios.get('/api/games')
+        const getChallenges = await axios.get('/api/games/1/gamerooms')
         challenges.push(getChallenges)
         return challenges
       }
@@ -190,7 +204,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          {this.state.redirectGameRoom ? <Redirect push to={`/gameroom/${this.state.game.data.game.id}`} /> : null}
+          {this.state.redirectGameRoom ? <Redirect push to={`/gameroom/${this.state.gameNum + 1}`} /> : null}
           {this.state.redirectGameRoomP2 ? <Redirect push to={`/gameroom/${this.state.gameId}`} /> : null}
           {this.state.redirectHomepage ? <Redirect push to='/' /> : null}
           <Switch>

@@ -11,7 +11,7 @@ class Api::GameroomsController < ApplicationController
   end
 
   def create
-    @gameroom = Gameroom.create(gameroom_params)
+    @gameroom = Gameroom.create!(gameroom_params)
     render json: @gameroom
   end
 
@@ -23,7 +23,7 @@ class Api::GameroomsController < ApplicationController
 
   private
   def gameroom_params
-    params.require(:gameroom).permit(:user_id, :card_id, :apiCard_id)
+    params.require(:gameroom).permit(:user_id, :p1_life_points, :p2_life_points)
   end
 
 end
