@@ -1,24 +1,27 @@
-# README
+# YuGiOh App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Live site: https://childrenscardgame.herokuapp.com/
 
-Things you may want to cover:
 
-* Ruby version
+### Technologies
 
-* System dependencies
 
-* Configuration
+Languages: Ruby, JavaScript
 
-* Database creation
+Other: Rails, Styled Components,
 
-* Database initialization
+Editor: Visual Studio Code
 
-* How to run the test suite
+Planning: Trello, Figma
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+### Wireframes
 
-* ...
+-
+
+-
+
+
+### Future Iterations
+
+-
