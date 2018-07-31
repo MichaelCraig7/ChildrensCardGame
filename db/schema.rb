@@ -35,6 +35,12 @@ ActiveRecord::Schema.define(version: 2018_07_30_174452) do
   create_table "gamerooms", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "card_id"
+    t.string "p1_hand_1"
+    t.string "p1_hand_2"
+    t.string "p1_hand_3"
+    t.string "p2_hand_1"
+    t.string "p2_hand_2"
+    t.string "p2_hand_3"
     t.integer "p1_life_points"
     t.integer "p2_life_points"
     t.datetime "created_at", null: false

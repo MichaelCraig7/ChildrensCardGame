@@ -1,27 +1,27 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 
-const Field = styled.div`
-    .handWrapper {
-        display: grid;
-        grid-template-columns: auto;
-    }
-    .hand img{
-        overflow: hidden;
-    }
-`
+
 
 class GameRoom extends Component {
     render() {
+
+        {if (this.props.state.playerOne && this.props.state.p1Hand1) {
+            return (
+                <img src={this.props.state.p1Hand1.card.image_path} alt='img' />
+            )
+        }}
+        {if (this.props.state.playerTwo && this.props.state.p2Hand1) {
+            return (
+                <img src={this.props.state.p2Hand1.card.image_path} alt='img' />
+            )
+        }}
         return (
-            <Field>
+            <div>
                 <h1>GameRoom</h1>
-                <div className='handWrapper'>
-                    <div>card1</div>
-                    <div>card2</div>
-                </div>
-                <button onClick={() => this.props.buttonTest()}></button>
-            </Field>
+
+                <button onClick={() => this.props.updateGameroom()}>Draw</button>
+
+            </div>
         );
     }
 }

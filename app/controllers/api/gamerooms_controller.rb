@@ -16,6 +16,9 @@ class Api::GameroomsController < ApplicationController
   end
 
   def update
+    @gameroom = Gameroom.find(params[:id])
+    @gameroom.update(game_params)
+    render json: @gameroom
   end
 
   def delete
@@ -23,7 +26,7 @@ class Api::GameroomsController < ApplicationController
 
   private
   def gameroom_params
-    params.require(:gameroom).permit(:user_id, :p1_life_points, :p2_life_points)
+    params.require(:gameroom).permit(:user_id, :p1_life_points, :p2_life_points, :p1_hand_1, :p1_hand_2, :p1_hand_3, :p2_hand_1, :p2_hand_2, :p2_hand_3)
   end
 
 end

@@ -19,8 +19,16 @@ class App extends Component {
     gameRoom: {},
     playerOne: false,
     playerTwo: false,
+    p1LifePoints: 4000,
+    p2LifePoints: 4000,
     p2Info: {},
-    redirectGameRoom: false
+    redirectGameRoom: false,
+    p1Hand1: '',
+    p1Hand2: '',
+    p1Hand3: '',
+    p2Hand1: '',
+    p2Hand2: '',
+    p2Hand3: ''
   }
 
   componentDidMount() {
@@ -28,7 +36,7 @@ class App extends Component {
   }
 
   createGame = () => {
-    this.setState({ 
+    this.setState({
       createGamePressed: !this.state.createGamePressed,
       gameNum: this.state.challengeList.length
     })
@@ -67,7 +75,7 @@ class App extends Component {
         redirectGameRoom: playerObject.redirectGameRoom
       })
     } else if (this.state.acceptGamePressed) {
-      const p2Info = await this.p2Info()
+      // const p2Info = await this.p2Info()
       const playerObject = await this.setPlayerAndRedirect()
       this.setState({
         userDeck,
@@ -75,7 +83,7 @@ class App extends Component {
         yugiSelected,
         playerOne: playerObject.playerOne,
         playerTwo: playerObject.playerTwo,
-        p2Info,
+        // p2Info,
         redirectGameRoomP2: playerObject.redirectGameRoomP2
       })
     }
@@ -93,13 +101,13 @@ class App extends Component {
         const resolved = await Promise.all(deckPromise)
         return resolved
       }
-        catch (error) {
-          console.error(error)
-        }
-      } else {
-        return []
+      catch (error) {
+        console.error(error)
       }
+    } else {
+      return []
     }
+  }
 
   getKaibaDeckBoolean = () => {
     return (!this.state.kaibaSelected)
@@ -112,13 +120,14 @@ class App extends Component {
   gameCreation = async () => {
     let id
     if (this.state.createGamePressed) {
-      id = 1
-    } else {
       id = 2
+    } else {
+      id = 1
     }
     try {
       const createGame = await axios.post('/api/games/1/gamerooms', {
         user_id: id,
+        card_num: "89631139",
         p1_life_points: 4000,
       })
       return createGame
@@ -175,14 +184,14 @@ class App extends Component {
     return playerObject
   }
 
-  p2Info = async () => {
-    const gameId = this.state.gameNum + 1
-    const p2Information = await axios.patch(`/api/games/1/gamerooms/${gameId}`, {
-      userId: 2,
-      p2_life_points: 4000
-    })
-    return p2Information
-  }
+  // p2Info = async () => {
+  //   const gameId = this.state.gameNum + 1
+  //   const p2Information = await axios.patch(`/api/games/1/gamerooms/${gameId}`, {
+  //     userId: 2,
+  //     p2_life_points: 4000
+  //   })
+  //   return p2Information
+  // }
 
   challengeChecker = () => {
     this.setState({
@@ -191,7 +200,55 @@ class App extends Component {
   }
 
   buttonTest = () => {
-    
+
+  }
+
+  updateGameroom = async () => {
+    // this.state.userDeck.map(card => {
+    // })
+    try {
+      const cards = this.state.userDeck
+      const card = await cards[Math.floor(Math.random() * cards.length)]
+      // const gameId = this.state.gameNum + 1
+      if (this.state.playerOne) {
+        this.setState({
+          p1Hand1: card
+        })
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, {
+          p1_hand_1: this.state.p1Hand1
+        })
+      } else if (this.state.playerTwo) {
+        this.setState({
+          p2Hand1: card
+        })
+      }
+    }
+    catch (error) {
+      console.error(error)
+    }
+    // const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, {
+    //   p2_hand_1: this.state.p2Hand1
+    // })
+
+    // if (this.state.p1Hand1 === '')
+    //   this.setState({
+
+    //   })
+    // const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, {
+    //   p1_life_points: this.state.p1LifePoints,
+    //   p2_life_points: this.state.p2LifePoints,
+    //   p1_hand_1: this.state.p1Hand1,
+    //   p1_hand_2: this.state.p1Hand2,
+    //   p1_hand_3: this.state.p1Hand3,
+    //   p2_hand_1: this.state.p2Hand1,
+    //   p2_hand_2: this.state.p2Hand2,
+    //   p2_hand_3: this.state.p2Hand3
+    // })
+
+  }
+
+  populateHand = () => {
+
   }
 
   render() {
@@ -208,13 +265,17 @@ class App extends Component {
         createGame={this.createGame}
         challengeChecker={this.challengeChecker}
         acceptGame={this.acceptGame}
-        buttonTest={this.props.buttonTest}
+        // buttonTest={this.buttonTest}
+        p1Hand1={this.state.p1Hand1}
       />
     )
 
     const GameRoomComponent = (props) => (
-      <GameRoom {...props} 
-        buttonTest={this.buttonTest}/>
+      <GameRoom {...props}
+        buttonTest={this.buttonTest}
+        updateGameroom={this.updateGameroom}
+        state={this.state}
+      />
     )
 
     return (
