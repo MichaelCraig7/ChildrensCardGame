@@ -54,10 +54,6 @@ class Homepage extends Component {
 
     render() {
 
-        // const ChallengesComponent = (props) => {
-        //     <Challenges {...props} />
-        // }
-
         const x = this.props
 
         return (

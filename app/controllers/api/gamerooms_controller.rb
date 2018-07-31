@@ -17,7 +17,7 @@ class Api::GameroomsController < ApplicationController
 
   def update
     @gameroom = Gameroom.find(params[:id])
-    @gameroom.update(game_params)
+    @gameroom.update(gameroom_params)
     render json: @gameroom
   end
 
