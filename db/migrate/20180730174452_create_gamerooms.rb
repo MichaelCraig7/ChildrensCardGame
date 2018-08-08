@@ -3,6 +3,7 @@ class CreateGamerooms < ActiveRecord::Migration[5.2]
     create_table :gamerooms do |t|
       t.references :user, foreign_key: true
       t.references :card, foreign_key: true
+      t.json :payload
       t.string :p1_hand_1
       t.string :p1_hand_2
       t.string :p1_hand_3

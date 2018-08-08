@@ -191,7 +191,10 @@ class App extends Component {
     try {
       const cards = this.state.userDeck
       const card = await cards[Math.floor(Math.random() * cards.length)]
-      console.log(this.state.playerOne);
+      const cardImage = card.card.image_path
+      console.log(this.state.playerOne)
+      console.log(cardImage)
+
       
       if (this.state.playerOne) {
         // const p1Hand1 = [...this.state.p1Hand1]
@@ -200,10 +203,12 @@ class App extends Component {
           p1Hand1: card
         })
         console.log(this.state.p1Hand1)
-        let p1_hand_1_object = {
-          p1_hand_1: this.state.p1Hand1
-        }
-        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, p1_hand_1_object)
+        let payload = {...this.state}
+        payload.p1_hand_1 = cardImage
+        // let p1_hand_1_object = {
+        //   p1_hand_1: this.state.p1Hand1
+        // }
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
         console.log(update)
       } else if (this.state.playerTwo) {
         this.setState({
