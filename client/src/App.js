@@ -216,17 +216,17 @@ class App extends Component {
           this.setState({ p2Hand1: card })
           let payload = { ...this.state }
           payload.p2_hand_1 = cardImage
-          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
         } else if (!this.state.p2Hand2) {
           this.setState({ p2Hand2: card })
           let payload = { ...this.state }
           payload.p2_hand_2 = cardImage
-          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
         } else if (!this.state.p2Hand3) {
           this.setState({ p2Hand3: card })
           let payload = { ...this.state }
           payload.p2_hand_3 = cardImage
-          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
         }
         //   this.setState({
         //     p2Hand1: card.image_path
