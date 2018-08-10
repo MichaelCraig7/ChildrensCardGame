@@ -192,6 +192,8 @@ class App extends Component {
       const cards = this.state.userDeck
       const card = await cards[Math.floor(Math.random() * cards.length)]
       const cardImage = card.card.image_path
+      console.log(card);
+      
       if (this.state.playerOne) {
         if (!this.state.p1Hand1) {
           this.setState({ p1Hand1: card })
@@ -213,17 +215,17 @@ class App extends Component {
         if (!this.state.p2Hand1) {
           this.setState({ p2Hand1: card })
           let payload = { ...this.state }
-          payload.p1_hand_1 = cardImage
+          payload.p2_hand_1 = cardImage
           const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
         } else if (!this.state.p2Hand2) {
           this.setState({ p2Hand2: card })
           let payload = { ...this.state }
-          payload.p1_hand_2 = cardImage
+          payload.p2_hand_2 = cardImage
           const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
         } else if (!this.state.p2Hand3) {
           this.setState({ p2Hand3: card })
           let payload = { ...this.state }
-          payload.p1_hand_3 = cardImage
+          payload.p2_hand_3 = cardImage
           const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
         }
         //   this.setState({

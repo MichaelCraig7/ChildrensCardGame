@@ -29,49 +29,37 @@ class GameRoom extends Component {
 
     p1Card1 = () => {
         if (this.props.state.playerOne && this.props.state.p1Hand1) {
-            return (
-                    <img src={this.props.state.p1Hand1.card.image_path} alt='img' />
-            )
+            return (<img src={this.props.state.p1Hand1.card.image_path} alt='img' />)
         }
     }
 
     p1Card2 = () => {
         if (this.props.state.playerOne && this.props.state.p1Hand2) {
-            return (
-                    <img src={this.props.state.p1Hand2.card.image_path} alt='img' />
-            )
+            return (<img src={this.props.state.p1Hand2.card.image_path} alt='img' />)
         }
     }
 
     p1Card3 = () => {
         if (this.props.state.playerOne && this.props.state.p1Hand3) {
-            return (
-                    <img src={this.props.state.p1Hand3.card.image_path} alt='img' />
-            )
+            return (<img src={this.props.state.p1Hand3.card.image_path} alt='img' />)
         }
     }
 
     p2Card1 = () => {
         if (this.props.state.playerTwo && this.props.state.p2Hand1) {
-            return (
-                    <img src={this.props.state.p2Hand1.card.image_path} alt='img' />
-            )
+            return (<img src={this.props.state.p2Hand1.card.image_path} alt='img' />)
         }
     }
 
     p2Card2 = () => {
         if (this.props.state.playerTwo && this.props.state.p2Hand2) {
-            return (
-                    <img src={this.props.state.p2Hand2.card.image_path} alt='img' />
-            )
+            return (<img src={this.props.state.p2Hand2.card.image_path} alt='img' />)
         }
     }
 
     p2Card3 = () => {
         if (this.props.state.playerTwo && this.props.state.p2Hand3) {
-            return (
-                    <img src={this.props.state.p2Hand3.card.image_path} alt='img' />
-            )
+            return (<img src={this.props.state.p2Hand3.card.image_path} alt='img' />)
         }
     }
 
@@ -87,12 +75,12 @@ class GameRoom extends Component {
 
                 <button onClick={() => this.props.updateGameroom()}>Draw</button>
                 <button onClick={() => this.rerender()}>rerender</button>
-                {this.p1Card1()}
-                {this.p1Card2()}
-                {this.p1Card3()}
-                {this.p2Card1()}
-                {this.p2Card2()}
-                {this.p2Card3()}
+                <div>{this.p1Card1()}</div>
+                <div>{this.p1Card2()}</div>
+                <div>{this.p1Card3()}</div>
+                <div>{this.p2Card1()}</div>
+                <div>{this.p2Card2()}</div>
+                <div>{this.p2Card3()}</div>
             </div>
         );
     }
