@@ -192,33 +192,48 @@ class App extends Component {
       const cards = this.state.userDeck
       const card = await cards[Math.floor(Math.random() * cards.length)]
       const cardImage = card.card.image_path
-      console.log(this.state.playerOne)
-      console.log(cardImage)
-
-      
       if (this.state.playerOne) {
-        // const p1Hand1 = [...this.state.p1Hand1]
-        // p1Hand1.push(card)
-        this.setState({
-          p1Hand1: card
-        })
-        console.log(this.state.p1Hand1)
-        let payload = {...this.state}
-        payload.p1_hand_1 = cardImage
-        // let p1_hand_1_object = {
-        //   p1_hand_1: this.state.p1Hand1
-        // }
-        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
-        console.log(update)
-      } else if (this.state.playerTwo) {
-        this.setState({
-          p2Hand1: card.image_path
-        })
-        let p2_hand_1_object = {
-          p2_hand_1: this.state.p2Hand1
+        if (!this.state.p1Hand1) {
+          this.setState({ p1Hand1: card })
+          let payload = { ...this.state }
+          payload.p1_hand_1 = cardImage
+          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+        } else if (!this.state.p1Hand2) {
+          this.setState({ p1Hand2: card })
+          let payload = { ...this.state }
+          payload.p1_hand_2 = cardImage
+          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+        } else if (!this.state.p1Hand3) {
+          this.setState({ p1Hand3: card })
+          let payload = { ...this.state }
+          payload.p1_hand_3 = cardImage
+          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
         }
-        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, p2_hand_1_object)
-        console.log(update)
+      } else if (this.state.playerTwo) {
+        if (!this.state.p2Hand1) {
+          this.setState({ p2Hand1: card })
+          let payload = { ...this.state }
+          payload.p1_hand_1 = cardImage
+          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+        } else if (!this.state.p2Hand2) {
+          this.setState({ p2Hand2: card })
+          let payload = { ...this.state }
+          payload.p1_hand_2 = cardImage
+          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+        } else if (!this.state.p2Hand3) {
+          this.setState({ p2Hand3: card })
+          let payload = { ...this.state }
+          payload.p1_hand_3 = cardImage
+          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+        }
+        //   this.setState({
+        //     p2Hand1: card.image_path
+        //   })
+        //   let p2_hand_1_object = {
+        //     p2_hand_1: this.state.p2Hand1
+        //   }
+        //   const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, p2_hand_1_object)
+        //   console.log(update)
       }
     }
     catch (error) {
