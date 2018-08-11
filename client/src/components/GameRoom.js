@@ -14,44 +14,40 @@ class GameRoom extends Component {
     }
 
     populateBoard = async () => {
-        // const roomNum = this.roomNumber()
         const game = await axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
         console.log(game)
-        const d = game.data
-        // if (this.props != undefined) {
-        if (this.props.state.playerOne || this.props.state.playerTwo) {
+        const x = this.props.state
+        const y = game.data
+        if (x.playerOne || x.playerTwo) {
             this.setState({
-                roomNum: d.id,
-                p1LifePoints: d.p1_life_points,
-                p2LifePoints: d.p2_life_points,
-                p1Deck: this.props.state.userDeck,
+                roomNum: y.id,
+                p1LifePoints: y.p1_life_points,
+                p2LifePoints: y.p2_life_points,
+                p1Deck: x.userDeck,
                 // p2Deck,
-                p1Hand1: d.p1_hand_1,
-                p1Hand2: d.p1_hand_2,
-                p1Hand3: d.p1_hand_3,
-                p2Hand1: d.p2_hand_1,
-                p2Hand2: d.p2_hand_2,
-                p2Hand3: d.p2_hand_3
+                p1Hand1: y.p1_hand_1,
+                p1Hand2: y.p1_hand_2,
+                p1Hand3: y.p1_hand_3,
+                p2Hand1: y.p2_hand_1,
+                p2Hand2: y.p2_hand_2,
+                p2Hand3: y.p2_hand_3
             })
             console.log('hitFirst', this.state.p1Hand1);
-        }
-        // } else if (this.props != undefined) {
-        else if (!this.props.state.playerOne || !this.props.state.playerTwo) {
+        } else if (!x.playerOne || !x.playerTwo) {
             this.setState({
-                roomNum: d.id,
-                p1LifePoints: d.p1_life_points,
-                p2LifePoints: d.p2_life_points,
-                // p1Deck: this.props.state.userDeck,
+                roomNum: y.id,
+                p1LifePoints: y.p1_life_points,
+                p2LifePoints: y.p2_life_points,
+                // p1Deck: x.userDeck,
                 // p2Deck,
-                p1Hand1: d.p1_hand_1,
-                p1Hand2: d.p1_hand_2,
-                p1Hand3: d.p1_hand_3,
-                p2Hand1: d.p2_hand_1,
-                p2Hand2: d.p2_hand_2,
-                p2Hand3: d.p2_hand_3
+                p1Hand1: y.p1_hand_1,
+                p1Hand2: y.p1_hand_2,
+                p1Hand3: y.p1_hand_3,
+                p2Hand1: y.p2_hand_1,
+                p2Hand2: y.p2_hand_2,
+                p2Hand3: y.p2_hand_3
             })
             console.log('hit2', this.state.p1Hand1);
-            // }
         }
     }
 
@@ -61,14 +57,10 @@ class GameRoom extends Component {
 
     getGameRoomData = async () => {
         const x = this.props.state
-        // const roomNum  
-        // const game = await axios.get(`/api/games/1/gamerooms/${this.props.state.gameNumP1}`)
         const game = await axios.get('/api/games/1/gamerooms/3')
         const gameIdP1 = x.gameNum + 1
         const gameIdP2 = x.gameId
         if (!x.playerOne && !x.playerTwo) {
-
-
 
         } else if (x.playerOne) {
             const game = await axios.get(`/api/games/1/gamerooms/${gameIdP1}`)

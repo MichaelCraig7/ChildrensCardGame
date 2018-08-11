@@ -94,19 +94,14 @@ class App extends Component {
 
   populateDeck = async (deckName) => {
     if (this.state.userDeck.length === 0) {
-      try {
-        const res = await axios.get(`https://www.ygohub.com/api/set_info?name=Starter Deck: ${deckName}`)
-        const cards = res.data.set.language_cards["English (na)"]
-        const deckPromise = cards.map(async (card) => {
-          const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
-          return cardRes.data
-        })
-        const resolved = await Promise.all(deckPromise)
-        return resolved
-      }
-      catch (error) {
-        console.error(error)
-      }
+      const res = await axios.get(`https://www.ygohub.com/api/set_info?name=Starter Deck: ${deckName}`)
+      const cards = res.data.set.language_cards["English (na)"]
+      const deckPromise = cards.map(async (card) => {
+        const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
+        return cardRes.data
+      })
+      const resolved = await Promise.all(deckPromise)
+      return resolved
     } else {
       return []
     }
@@ -127,51 +122,29 @@ class App extends Component {
     } else {
       id = 1
     }
-    try {
-      const createGame = await axios.post('/api/games/1/gamerooms', {
-        user_id: id,
-        p1_life_points: 4000
-      })
-      return createGame
-    }
-    catch (error) {
-      console.error(error)
-    }
+    const createGame = await axios.post('/api/games/1/gamerooms', {
+      user_id: id,
+      p1_life_points: 4000
+    })
+    return createGame
   }
 
   challengeCreation = async () => {
     if (!this.state.createGamePressed) {
-      try {
-        const challengeList = await axios.get('/api/games/1/gamerooms')
-        console.log(challengeList.data);
-        
-        this.setState({ challengeList: challengeList.data })
-      }
-      catch (error) {
-        console.error(error)
-      }
+      const challengeList = await axios.get('/api/games/1/gamerooms')
+      this.setState({ challengeList: challengeList.data })
     } else {
       let challenges = []
-      try {
-        const getChallenges = await axios.get('/api/games/1/gamerooms')
-        challenges.push(getChallenges)
-        return challenges
-      }
-      catch (error) {
-        console.error(error)
-      }
+      const getChallenges = await axios.get('/api/games/1/gamerooms')
+      challenges.push(getChallenges)
+      return challenges
     }
   }
 
   gameRoomCreation = async () => {
-    try {
-      const gameId = this.state.gameNum + 1
-      const viewGame = await axios.get(`/api/games/1/gamerooms/${gameId}`)
-      return viewGame
-    }
-    catch (error) {
-      console.error(error)
-    }
+    const gameId = this.state.gameNum + 1
+    const viewGame = await axios.get(`/api/games/1/gamerooms/${gameId}`)
+    return viewGame
   }
 
   setPlayerAndRedirect = () => {
@@ -195,70 +168,51 @@ class App extends Component {
   }
 
   updateGameroom = async () => {
-    try {
-      const cards = this.state.userDeck
-      const card = await cards[Math.floor(Math.random() * cards.length)]
-      const cardImage = card.card.image_path
-      console.log(card);
-      
-      if (this.state.playerOne) {
-        if (!this.state.p1Hand1) {
-          this.setState({ p1Hand1: card })
-          let payload = { ...this.state }
-          payload.p1_hand_1 = cardImage
-          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
-          return update
-
-        } else if (!this.state.p1Hand2) {
-          this.setState({ p1Hand2: card })
-          let payload = { ...this.state }
-          payload.p1_hand_2 = cardImage
-          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
-          return update
-        } else if (!this.state.p1Hand3) {
-          this.setState({ p1Hand3: card })
-          let payload = { ...this.state }
-          payload.p1_hand_3 = cardImage
-          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
-          return update
-        }
-      } else if (this.state.playerTwo) {
-        if (!this.state.p2Hand1) {
-          this.setState({ p2Hand1: card })
-          let payload = { ...this.state }
-          payload.p2_hand_1 = cardImage
-          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
-          return update
-        } else if (!this.state.p2Hand2) {
-          this.setState({ p2Hand2: card })
-          let payload = { ...this.state }
-          payload.p2_hand_2 = cardImage
-          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
-          return update
-        } else if (!this.state.p2Hand3) {
-          this.setState({ p2Hand3: card })
-          let payload = { ...this.state }
-          payload.p2_hand_3 = cardImage
-          const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
-          return update
-        }
-        //   this.setState({
-        //     p2Hand1: card.image_path
-        //   })
-        //   let p2_hand_1_object = {
-        //     p2_hand_1: this.state.p2Hand1
-        //   }
-        //   const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, p2_hand_1_object)
-        //   console.log(update)
+    const cards = this.state.userDeck
+    const card = await cards[Math.floor(Math.random() * cards.length)]
+    const cardImage = card.card.image_path
+    console.log(card);
+    if (this.state.playerOne) {
+      if (!this.state.p1Hand1) {
+        this.setState({ p1Hand1: card })
+        let payload = { ...this.state }
+        payload.p1_hand_1 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+        return update
+      } else if (!this.state.p1Hand2) {
+        this.setState({ p1Hand2: card })
+        let payload = { ...this.state }
+        payload.p1_hand_2 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+        return update
+      } else if (!this.state.p1Hand3) {
+        this.setState({ p1Hand3: card })
+        let payload = { ...this.state }
+        payload.p1_hand_3 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+        return update
+      }
+    } else if (this.state.playerTwo) {
+      if (!this.state.p2Hand1) {
+        this.setState({ p2Hand1: card })
+        let payload = { ...this.state }
+        payload.p2_hand_1 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
+        return update
+      } else if (!this.state.p2Hand2) {
+        this.setState({ p2Hand2: card })
+        let payload = { ...this.state }
+        payload.p2_hand_2 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
+        return update
+      } else if (!this.state.p2Hand3) {
+        this.setState({ p2Hand3: card })
+        let payload = { ...this.state }
+        payload.p2_hand_3 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
+        return update
       }
     }
-    catch (error) {
-      console.error(error)
-    }
-  }
-
-  populateHand = () => {
-
   }
 
   render() {

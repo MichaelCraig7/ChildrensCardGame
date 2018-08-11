@@ -2,17 +2,16 @@ import React, { Component } from 'react'
 import { } from 'react-router-dom'
 import Challenges from './Challenges'
 import styled from 'styled-components'
-import GameRoom from './GameRoom';
 
 const HomepageWrapper = styled.div`
     background: rgb(216, 216, 216);
-display: grid;
-grid-gap: 2vw;
-grid-template-areas:
-'body1 body1 body1 body1 body1'
-'body2 body2 body2 body2 body2'
-'body3 body3 body3 body3 body3'
-'body4 body4 body4 body4 body4';
+    display: grid;
+    grid-gap: 2vw;
+    grid-template-areas:
+    'body1 body1 body1 body1 body1'
+    'body2 body2 body2 body2 body2'
+    'body3 body3 body3 body3 body3'
+    'body4 body4 body4 body4 body4';
 `
 
 const CharacterSelect = styled.div`
