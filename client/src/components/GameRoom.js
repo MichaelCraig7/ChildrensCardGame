@@ -12,10 +12,10 @@ class GameRoom extends Component {
     populateBoard = async () => {
         // const roomNum = this.roomNumber()
         //use path name
-        const game = await axios.get('/api/games/1/gamerooms/16')
+        const game = await axios.get('/api/games/1/gamerooms/18')
         console.log(game)
         const d = game.data
-        if (this.props != undefined) {
+        // if (this.props != undefined) {
             if (this.props.state.playerOne || this.props.state.playerTwo) {
                 this.setState({
                     roomNum: d.id,
@@ -32,21 +32,23 @@ class GameRoom extends Component {
                 })
                 console.log('hitFirst', this.state);
             }
-        } else {
-            this.setState({
-                roomNum: d.id,
-                p1LifePoints: d.p1_life_points,
-                p2LifePoints: d.p2_life_points,
-                // p1Deck: this.props.state.userDeck,
-                // p2Deck,
-                p1Hand1: d.p1_hand_1,
-                p1Hand2: d.p1_hand_2,
-                p1Hand3: d.p1_hand_3,
-                p2Hand1: d.p2_hand_1,
-                p2Hand2: d.p2_hand_2,
-                p2Hand3: d.p2_hand_3
-            })
-            console.log('hit2', this.state);
+        // } else if (this.props != undefined) {
+           else if (!this.props.state.playerOne || !this.props.state.playerTwo) {
+                this.setState({
+                    roomNum: d.id,
+                    p1LifePoints: d.p1_life_points,
+                    p2LifePoints: d.p2_life_points,
+                    // p1Deck: this.props.state.userDeck,
+                    // p2Deck,
+                    p1Hand1: d.p1_hand_1,
+                    p1Hand2: d.p1_hand_2,
+                    p1Hand3: d.p1_hand_3,
+                    p2Hand1: d.p2_hand_1,
+                    p2Hand2: d.p2_hand_2,
+                    p2Hand3: d.p2_hand_3
+                })
+                console.log('hit2', this.state);
+            // }
         }
     }
 
