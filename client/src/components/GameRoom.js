@@ -14,16 +14,33 @@ class GameRoom extends Component {
     }
 
     getGameRoomData = async () => {
-        if (this.props.state.playerOne) {
-            const games = await axios.get('/api/games/1/gamerooms')
-            const gameNum = this.props.state.gameNum + 1
-            const game = games.data[gameNum]
-            console.log(games)
-        } else if (this.props.state.playerTwo) {
-            const games = await axios.get('/api/games/1/gamerooms')
-            const gameNum = this.props.state.gameId
-            const game = games.data[gameNum]
-            console.log(games)
+        const x = this.props.state
+        if (x.playerOne) {
+            const gameId = x.gameNum + 1
+            const game = await axios.get(`/api/games/1/gamerooms/${gameId}`)
+            // const game = games.data.find(game => game.id === (x.gameNum + 1))
+            console.log(game.data.p1_hand_1)
+            this.setState({
+                p1Hand1: game.data.p1_hand_1,
+                p1Hand2: game.data.p1_hand_2,
+                p1Hand3: game.data.p1_hand_3,
+                p2Hand1: game.data.p2_hand_1,
+                p2Hand2: game.data.p2_hand_2,
+                p2Hand3: game.data.p2_hand_3
+            })
+        } else if (x.playerTwo) {
+            const gameId = x.gameId
+            const game = await axios.get(`/api/games/1/gamerooms/${gameId}`)
+            // const game = games.data.find(game => game.id === (x.gameId))
+            console.log(game)
+            this.setState({
+                p1Hand1: game.p1_hand_1,
+                p1Hand2: game.p1_hand_2,
+                p1Hand3: game.p1_hand_3,
+                p2Hand1: game.p2_hand_1,
+                p2Hand2: game.p2_hand_2,
+                p2Hand3: game.p2_hand_3
+            })
         }
     }
 
