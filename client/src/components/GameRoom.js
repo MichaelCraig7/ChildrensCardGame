@@ -4,6 +4,10 @@ import axios from 'axios'
 
 class GameRoom extends Component {
 
+    state = {
+
+    }
+
     componentDidMount() {
         // this.getGameRoomData()
         this.populateBoard()
@@ -12,42 +16,42 @@ class GameRoom extends Component {
     populateBoard = async () => {
         // const roomNum = this.roomNumber()
         //use path name
-        const game = await axios.get('/api/games/1/gamerooms/18')
+        const game = await axios.get('/api/games/1/gamerooms/34')
         console.log(game)
         const d = game.data
         // if (this.props != undefined) {
-            if (this.props.state.playerOne || this.props.state.playerTwo) {
-                this.setState({
-                    roomNum: d.id,
-                    p1LifePoints: d.p1_life_points,
-                    p2LifePoints: d.p2_life_points,
-                    p1Deck: this.props.state.userDeck,
-                    // p2Deck,
-                    p1Hand1: d.p1_hand_1,
-                    p1Hand2: d.p1_hand_2,
-                    p1Hand3: d.p1_hand_3,
-                    p2Hand1: d.p2_hand_1,
-                    p2Hand2: d.p2_hand_2,
-                    p2Hand3: d.p2_hand_3
-                })
-                console.log('hitFirst', this.state);
-            }
+        if (this.props.state.playerOne || this.props.state.playerTwo) {
+            this.setState({
+                roomNum: d.id,
+                p1LifePoints: d.p1_life_points,
+                p2LifePoints: d.p2_life_points,
+                p1Deck: this.props.state.userDeck,
+                // p2Deck,
+                p1Hand1: d.p1_hand_1,
+                p1Hand2: d.p1_hand_2,
+                p1Hand3: d.p1_hand_3,
+                p2Hand1: d.p2_hand_1,
+                p2Hand2: d.p2_hand_2,
+                p2Hand3: d.p2_hand_3
+            })
+            console.log('hitFirst', this.state.p1Hand1);
+        }
         // } else if (this.props != undefined) {
-           else if (!this.props.state.playerOne || !this.props.state.playerTwo) {
-                this.setState({
-                    roomNum: d.id,
-                    p1LifePoints: d.p1_life_points,
-                    p2LifePoints: d.p2_life_points,
-                    // p1Deck: this.props.state.userDeck,
-                    // p2Deck,
-                    p1Hand1: d.p1_hand_1,
-                    p1Hand2: d.p1_hand_2,
-                    p1Hand3: d.p1_hand_3,
-                    p2Hand1: d.p2_hand_1,
-                    p2Hand2: d.p2_hand_2,
-                    p2Hand3: d.p2_hand_3
-                })
-                console.log('hit2', this.state);
+        else if (!this.props.state.playerOne || !this.props.state.playerTwo) {
+            this.setState({
+                roomNum: d.id,
+                p1LifePoints: d.p1_life_points,
+                p2LifePoints: d.p2_life_points,
+                // p1Deck: this.props.state.userDeck,
+                // p2Deck,
+                p1Hand1: d.p1_hand_1,
+                p1Hand2: d.p1_hand_2,
+                p1Hand3: d.p1_hand_3,
+                p2Hand1: d.p2_hand_1,
+                p2Hand2: d.p2_hand_2,
+                p2Hand3: d.p2_hand_3
+            })
+            console.log('hit2', this.state.p1Hand1);
             // }
         }
     }
@@ -96,7 +100,11 @@ class GameRoom extends Component {
 
     p1Card1 = () => {
         if (this.props.state.playerOne && this.props.state.p1Hand1) {
-            return (<img src={this.props.state.p1Hand1.card.image_path} alt='img' />)
+            return <img src={this.props.state.p1Hand1.card.image_path} alt='img1' />
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p1Hand1} alt='img2' />
+        } else {
+            return <img src={'http://p2.i.ntere.st/eb8ff3b2e798f57bda0621b7e33af4ca_480.jpg'} alt='img3' />
         }
     }
 
@@ -142,7 +150,7 @@ class GameRoom extends Component {
                 <h1>GameRoom</h1>
                 <button onClick={() => this.props.updateGameroom()}>Draw</button>
                 <button onClick={() => this.rerender()}>rerender</button>
-                {/* <div><img src={this.props.state.p1Hand1} alt=''/></div> */}
+                {/* <div><img src={this.state.p1Hand1} alt='fdgh' /></div> */}
                 <div>{this.p1Card1()}</div>
                 <div>{this.p1Card2()}</div>
                 <div>{this.p1Card3()}</div>
