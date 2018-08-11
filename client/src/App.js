@@ -12,6 +12,7 @@ class App extends Component {
     acceptGamePressed: false,
     kaibaSelected: false,
     yugiSelected: false,
+    gameNumber: 0,
     gameId: 0,
     gameNum: 0,
     game: {},
@@ -51,6 +52,8 @@ class App extends Component {
 
   getDeck = async (deckName) => {
     const userDeck = await this.populateDeck(deckName)
+    const gameNumP1 = (this.state.challengeList.length + 1)
+    const gameNumP2 = (this.state.challengeList.length)
     let yugiSelected = false
     let kaibaSelected = false
     if (deckName === 'Kaiba') {
@@ -65,6 +68,7 @@ class App extends Component {
       const playerObject = await this.setPlayerAndRedirect()
       this.setState({
         userDeck,
+        gameNumP1,
         kaibaSelected,
         yugiSelected,
         game,
@@ -78,6 +82,7 @@ class App extends Component {
       const playerObject = await this.setPlayerAndRedirect()
       this.setState({
         userDeck,
+        gameNumP2,
         kaibaSelected,
         yugiSelected,
         playerOne: playerObject.playerOne,

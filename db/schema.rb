@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2018_07_30_174452) do
     t.bigint "user_id"
     t.bigint "card_id"
     t.json "payload"
+    t.integer "room"
     t.string "p1_hand_1"
     t.string "p1_hand_2"
     t.string "p1_hand_3"
