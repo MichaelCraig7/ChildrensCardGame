@@ -15,7 +15,6 @@ class GameRoom extends Component {
 
     populateBoard = async () => {
         // const roomNum = this.roomNumber()
-        //use path name
         const game = await axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
         console.log(game)
         const d = game.data
