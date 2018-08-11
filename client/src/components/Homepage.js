@@ -82,7 +82,7 @@ class Homepage extends Component {
                     }
                 </CreateGameAndLoop>
 
-                <LeftBox><h1>sdasda</h1></LeftBox>
+                <LeftBox><h1></h1></LeftBox>
 
                 <div>
                     {x.acceptGamePressed
@@ -97,7 +97,7 @@ class Homepage extends Component {
                     }
                 </div>
 
-                <RightBox>greasga</RightBox>
+                <RightBox></RightBox>
             </HomepageWrapper>
         );
     }

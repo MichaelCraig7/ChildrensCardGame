@@ -143,6 +143,8 @@ class App extends Component {
     if (!this.state.createGamePressed) {
       try {
         const challengeList = await axios.get('/api/games/1/gamerooms')
+        console.log(challengeList.data);
+        
         this.setState({ challengeList: challengeList.data })
       }
       catch (error) {
