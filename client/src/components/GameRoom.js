@@ -30,15 +30,21 @@ class GameRoom extends Component {
             console.log(p1Deck)
             if (p1Key) {
                 payload.p1 = p1Key
-                p1Deck.map(card => {
-                    if (card) {
-                        console.log(card.card.image_path)
-                        console.log(card);
-                        
-                        payload.p1_deck_1 = card.card.image_path
-                        console.log(payload)
-                    }
-                })
+                payload.p1_deck_1 = p1Deck[0].card.image_path
+                payload.p1_deck_2 = p1Deck[1].card.image_path
+                payload.p1_deck_3 = p1Deck[2].card.image_path
+                payload.p1_deck_4 = p1Deck[3].card.image_path
+                console.log(payload)
+                // p1Deck.map(card => {
+                //     if (card.index === 1) {
+                //         console.log(card.card.image_path)
+                //         console.log(card)
+                //         payload.p1_deck_1 = card.card.image_path
+                //         console.log(payload)
+                //     } else if (card.index === 2) {
+                //         payload.p1_deck_2 = card.card.image_path
+                //     }
+                // })
             }
             if (p2Key) {
                 payload.p2 = p2Key
@@ -96,7 +102,13 @@ class GameRoom extends Component {
     }
 
     getP1Deck = () => {
-        return this.props.state.userDeck
+        let p1Deck = []
+        this.props.state.userDeck.map(card => {
+            if (card) {
+                p1Deck.push(card)
+            }
+        })
+        return p1Deck
     }
 
     getP1Key = () => {
