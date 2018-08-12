@@ -111,6 +111,30 @@ class GameRoom extends Component {
         }
     }
 
+    p1Card4 = () => {
+        if (this.props.state.playerOne && this.props.state.p1Hand4) {
+            return (<img src={this.props.state.p1Hand4.card.image_path} alt='img' />)
+        }
+    }
+
+    p1Card5 = () => {
+        if (this.props.state.playerOne && this.props.state.p1Hand5) {
+            return (<img src={this.props.state.p1Hand5.card.image_path} alt='img' />)
+        }
+    }
+
+    p1Card6 = () => {
+        if (this.props.state.playerOne && this.props.state.p1Hand6) {
+            return (<img src={this.props.state.p1Hand6.card.image_path} alt='img' />)
+        }
+    }
+
+    p1Card7 = () => {
+        if (this.props.state.playerOne && this.props.state.p1Hand7) {
+            return (<img src={this.props.state.p1Hand7.card.image_path} alt='img' />)
+        }
+    }
+
     p2Card1 = () => {
         if (this.props.state.playerTwo && this.props.state.p2Hand1) {
             return (<img src={this.props.state.p2Hand1.card.image_path} alt='img' />)
@@ -126,6 +150,30 @@ class GameRoom extends Component {
     p2Card3 = () => {
         if (this.props.state.playerTwo && this.props.state.p2Hand3) {
             return (<img src={this.props.state.p2Hand3.card.image_path} alt='img' />)
+        }
+    }
+
+    p2Card4 = () => {
+        if (this.props.state.playerTwo && this.props.state.p2Hand4) {
+            return (<img src={this.props.state.p2Hand4.card.image_path} alt='img' />)
+        }
+    }
+
+    p2Card5 = () => {
+        if (this.props.state.playerTwo && this.props.state.p2Hand5) {
+            return (<img src={this.props.state.p2Hand5.card.image_path} alt='img' />)
+        }
+    }
+
+    p2Card6 = () => {
+        if (this.props.state.playerTwo && this.props.state.p2Hand6) {
+            return (<img src={this.props.state.p2Hand6.card.image_path} alt='img' />)
+        }
+    }
+
+    p2Card7 = () => {
+        if (this.props.state.playerTwo && this.props.state.p2Hand7) {
+            return (<img src={this.props.state.p2Hand7.card.image_path} alt='img' />)
         }
     }
 
@@ -145,9 +193,17 @@ class GameRoom extends Component {
                 <div>{this.p1Card1()}</div>
                 <div>{this.p1Card2()}</div>
                 <div>{this.p1Card3()}</div>
+                <div>{this.p1Card4()}</div>
+                <div>{this.p1Card5()}</div>
+                <div>{this.p1Card6()}</div>
+                <div>{this.p1Card7()}</div>
                 <div>{this.p2Card1()}</div>
                 <div>{this.p2Card2()}</div>
                 <div>{this.p2Card3()}</div>
+                <div>{this.p2Card4()}</div>
+                <div>{this.p2Card5()}</div>
+                <div>{this.p2Card6()}</div>
+                <div>{this.p2Card7()}</div>
 
             </div>
         );

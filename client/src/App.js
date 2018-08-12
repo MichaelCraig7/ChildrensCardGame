@@ -28,9 +28,17 @@ class App extends Component {
     p1Hand1: '',
     p1Hand2: '',
     p1Hand3: '',
+    p1Hand4: '',
+    p1Hand5: '',
+    p1Hand6: '',
+    p1Hand7: '',
     p2Hand1: '',
     p2Hand2: '',
-    p2Hand3: ''
+    p2Hand3: '',
+    p2Hand4: '',
+    p2Hand5: '',
+    p2Hand6: '',
+    p2Hand7: ''
   }
 
   componentDidMount() {
@@ -191,6 +199,30 @@ class App extends Component {
         payload.p1_hand_3 = cardImage
         const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
         return update
+      } else if (!this.state.p1Hand4) {
+        this.setState({ p1Hand4: card })
+        let payload = { ...this.state }
+        payload.p1_hand_4 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+        return update
+      } else if (!this.state.p1Hand5) {
+        this.setState({ p1Hand5: card })
+        let payload = { ...this.state }
+        payload.p1_hand_5 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+        return update
+      } else if (!this.state.p1Hand6) {
+        this.setState({ p1Hand6: card })
+        let payload = { ...this.state }
+        payload.p1_hand_6 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+        return update
+      } else if (!this.state.p1Hand7) {
+        this.setState({ p1Hand7: card })
+        let payload = { ...this.state }
+        payload.p1_hand_7 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameNum + 1}`, payload)
+        return update
       }
     } else if (this.state.playerTwo) {
       const cards = this.state.userDeck2
@@ -212,6 +244,30 @@ class App extends Component {
         this.setState({ p2Hand3: card })
         let payload = { ...this.state }
         payload.p2_hand_3 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
+        return update
+      } else if (!this.state.p2Hand4) {
+        this.setState({ p2Hand4: card })
+        let payload = { ...this.state }
+        payload.p2_hand_4 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
+        return update
+      } else if (!this.state.p2Hand5) {
+        this.setState({ p2Hand5: card })
+        let payload = { ...this.state }
+        payload.p2_hand_5 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
+        return update
+      } else if (!this.state.p2Hand6) {
+        this.setState({ p2Hand6: card })
+        let payload = { ...this.state }
+        payload.p2_hand_6 = cardImage
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
+        return update
+      } else if (!this.state.p2Hand7) {
+        this.setState({ p2Hand7: card })
+        let payload = { ...this.state }
+        payload.p2_hand_7 = cardImage
         const update = await axios.patch(`/api/games/1/gamerooms/${this.state.gameId}`, payload)
         return update
       }
