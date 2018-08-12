@@ -107,7 +107,9 @@ class App extends Component {
       const cards = res.data.set.language_cards["English (na)"]
       const deckPromise = cards.map(async (card) => {
         const cardRes = await axios.get(`https://www.ygohub.com/api/card_info?name=${card.card_name}`)
-        return cardRes.data
+        if (cardRes.data.status !== "error") {
+          return cardRes.data
+        }
       })
       const resolved = await Promise.all(deckPromise)
       return resolved
