@@ -18,49 +18,44 @@ class GameRoom extends Component {
         console.log(game)
         const x = this.props.state
         const y = game.data
-        // if (x.playerOne || x.playerTwo) {
-            this.setState({
-                roomNum: y.id,
-                // p1: x.playerOne,
-                // p2: x.playerTwo,
-                p1LifePoints: y.p1_life_points,
-                p2LifePoints: y.p2_life_points,
-                p1Deck: x.userDeck,
-                p2Deck: x.userDeck2,
-                p1Hand1: y.p1_hand_1,
-                p1Hand2: y.p1_hand_2,
-                p1Hand3: y.p1_hand_3,
-                p1Hand4: y.p1_hand_4,
-                p1Hand5: y.p1_hand_5,
-                p1Hand6: y.p1_hand_6,
-                p1Hand7: y.p1_hand_7,
-                p2Hand1: y.p2_hand_1,
-                p2Hand2: y.p2_hand_2,
-                p2Hand3: y.p2_hand_3,
-                p2Hand4: y.p2_hand_4,
-                p2Hand5: y.p2_hand_5,
-                p2Hand6: y.p2_hand_6,
-                p2Hand7: y.p2_hand_7
-            })
-            console.log('hitFirst', this.state);
-        // } 
-        // else if (!x.playerOne || !x.playerTwo) {
-        //     this.setState({
-        //         roomNum: y.id,
-        //         p1LifePoints: y.p1_life_points,
-        //         p2LifePoints: y.p2_life_points,
-        //         p1Deck: x.userDeck,
-        //         p2Deck: x.userDeck2,
-        //         p1Hand1: y.p1_hand_1,
-        //         p1Hand2: y.p1_hand_2,
-        //         p1Hand3: y.p1_hand_3,
-        //         p1Hand4: y.p1_hand_4,
-        //         p2Hand1: y.p2_hand_1,
-        //         p2Hand2: y.p2_hand_2,
-        //         p2Hand3: y.p2_hand_3
-        //     })
-        //     console.log('hit2', this.state.p1Hand1);
-        // }
+        const p1Key = this.getP1Key()
+        const p2Key = this.getP2Key()
+        this.setState({
+            roomNum: y.id,
+            p1: p1Key,
+            p2: p2Key,
+            p1LifePoints: y.p1_life_points,
+            p2LifePoints: y.p2_life_points,
+            p1Deck: x.userDeck,
+            p2Deck: x.userDeck2,
+            p1Hand1: y.p1_hand_1,
+            p1Hand2: y.p1_hand_2,
+            p1Hand3: y.p1_hand_3,
+            p1Hand4: y.p1_hand_4,
+            p1Hand5: y.p1_hand_5,
+            p1Hand6: y.p1_hand_6,
+            p1Hand7: y.p1_hand_7,
+            p2Hand1: y.p2_hand_1,
+            p2Hand2: y.p2_hand_2,
+            p2Hand3: y.p2_hand_3,
+            p2Hand4: y.p2_hand_4,
+            p2Hand5: y.p2_hand_5,
+            p2Hand6: y.p2_hand_6,
+            p2Hand7: y.p2_hand_7
+        })
+        console.log('hitFirst', this.state);
+    }
+
+    getP1Key = () => {
+        if (this.props.state.playerOne) {
+            return this.props.location.key
+        }
+    }
+
+    getP2Key = () => {
+        if (this.props.state.playerTwo) {
+            return this.props.location.key
+        }
     }
 
     roomNumber = () => {
