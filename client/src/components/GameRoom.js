@@ -94,87 +94,114 @@ class GameRoom extends Component {
             return <img src={this.props.state.p1Hand1.card.image_path} alt='img1' />
         } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
             return <img src={this.state.p1Hand1} alt='img2' />
-        } else {
-            return <img src={'http://p2.i.ntere.st/eb8ff3b2e798f57bda0621b7e33af4ca_480.jpg'} alt='img3' />
-        }
+        } 
+        // else {
+        //     return <img src={'http://p2.i.ntere.st/eb8ff3b2e798f57bda0621b7e33af4ca_480.jpg'} alt='img3' />
+        // }
     }
 
     p1Card2 = () => {
         if (this.props.state.playerOne && this.props.state.p1Hand2) {
             return (<img src={this.props.state.p1Hand2.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p1Hand2} alt='img2' />
+        } 
     }
 
     p1Card3 = () => {
         if (this.props.state.playerOne && this.props.state.p1Hand3) {
             return (<img src={this.props.state.p1Hand3.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p1Hand3} alt='img2' />
+        } 
     }
 
     p1Card4 = () => {
         if (this.props.state.playerOne && this.props.state.p1Hand4) {
             return (<img src={this.props.state.p1Hand4.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p1Hand4} alt='img2' />
+        } 
     }
 
     p1Card5 = () => {
         if (this.props.state.playerOne && this.props.state.p1Hand5) {
             return (<img src={this.props.state.p1Hand5.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p1Hand5} alt='img2' />
+        } 
     }
 
     p1Card6 = () => {
         if (this.props.state.playerOne && this.props.state.p1Hand6) {
             return (<img src={this.props.state.p1Hand6.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p1Hand6} alt='img2' />
+        } 
     }
 
     p1Card7 = () => {
         if (this.props.state.playerOne && this.props.state.p1Hand7) {
             return (<img src={this.props.state.p1Hand7.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p1Hand7} alt='img2' />
+        } 
     }
 
     p2Card1 = () => {
         if (this.props.state.playerTwo && this.props.state.p2Hand1) {
             return (<img src={this.props.state.p2Hand1.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p2Hand1} alt='img2' />
+        } 
     }
 
     p2Card2 = () => {
         if (this.props.state.playerTwo && this.props.state.p2Hand2) {
             return (<img src={this.props.state.p2Hand2.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p2Hand2} alt='img2' />
+        } 
     }
 
     p2Card3 = () => {
         if (this.props.state.playerTwo && this.props.state.p2Hand3) {
             return (<img src={this.props.state.p2Hand3.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p2Hand3} alt='img2' />
+        } 
     }
 
     p2Card4 = () => {
         if (this.props.state.playerTwo && this.props.state.p2Hand4) {
             return (<img src={this.props.state.p2Hand4.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p2Hand4} alt='img2' />
+        } 
     }
 
     p2Card5 = () => {
         if (this.props.state.playerTwo && this.props.state.p2Hand5) {
             return (<img src={this.props.state.p2Hand5.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p2Hand5} alt='img2' />
+        } 
     }
 
     p2Card6 = () => {
         if (this.props.state.playerTwo && this.props.state.p2Hand6) {
             return (<img src={this.props.state.p2Hand6.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p2Hand6} alt='img2' />
+        } 
     }
 
     p2Card7 = () => {
         if (this.props.state.playerTwo && this.props.state.p2Hand7) {
             return (<img src={this.props.state.p2Hand7.card.image_path} alt='img' />)
-        }
+        } else if (this.state !== undefined && !this.props.state.playerOne && !this.props.state.playerTwo) {
+            return <img src={this.state.p2Hand7} alt='img2' />
+        } 
     }
 
     rerender = () => {
