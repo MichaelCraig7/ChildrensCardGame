@@ -15,35 +15,69 @@ class GameRoom extends Component {
 
     populateBoard = async () => {
         const game = await axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
-        console.log(game)
         const x = this.props.state
         const y = game.data
-        const p1Key = this.getP1Key()
-        const p2Key = this.getP2Key()
-        this.setState({
-            roomNum: y.id,
-            p1: p1Key,
-            p2: p2Key,
-            p1LifePoints: y.p1_life_points,
-            p2LifePoints: y.p2_life_points,
-            p1Deck: x.userDeck,
-            p2Deck: x.userDeck2,
-            p1Hand1: y.p1_hand_1,
-            p1Hand2: y.p1_hand_2,
-            p1Hand3: y.p1_hand_3,
-            p1Hand4: y.p1_hand_4,
-            p1Hand5: y.p1_hand_5,
-            p1Hand6: y.p1_hand_6,
-            p1Hand7: y.p1_hand_7,
-            p2Hand1: y.p2_hand_1,
-            p2Hand2: y.p2_hand_2,
-            p2Hand3: y.p2_hand_3,
-            p2Hand4: y.p2_hand_4,
-            p2Hand5: y.p2_hand_5,
-            p2Hand6: y.p2_hand_6,
-            p2Hand7: y.p2_hand_7
-        })
-        console.log('hitFirst', this.state);
+        console.log(game)
+        if (this.props.state.playerOne || this.props.state.playerTwo) {
+            const p1Key = this.getP1Key()
+            const p2Key = this.getP2Key()
+            let payload = { ...this.state }
+            if (p1Key) {
+                payload.p1 = p1Key
+            }
+            if (p2Key) {
+                payload.p2 = p2Key
+            }
+            const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+            console.log('upd', update)
+            this.setState({
+                roomNum: y.id,
+                p1: p1Key,
+                p2: p2Key,
+                p1LifePoints: y.p1_life_points,
+                p2LifePoints: y.p2_life_points,
+                p1Deck: x.userDeck,
+                p2Deck: x.userDeck2,
+                p1Hand1: y.p1_hand_1,
+                p1Hand2: y.p1_hand_2,
+                p1Hand3: y.p1_hand_3,
+                p1Hand4: y.p1_hand_4,
+                p1Hand5: y.p1_hand_5,
+                p1Hand6: y.p1_hand_6,
+                p1Hand7: y.p1_hand_7,
+                p2Hand1: y.p2_hand_1,
+                p2Hand2: y.p2_hand_2,
+                p2Hand3: y.p2_hand_3,
+                p2Hand4: y.p2_hand_4,
+                p2Hand5: y.p2_hand_5,
+                p2Hand6: y.p2_hand_6,
+                p2Hand7: y.p2_hand_7
+            })
+        } else {
+            this.setState({
+                roomNum: y.id,
+                p1: y.p1,
+                p2: y.p2,
+                p1LifePoints: y.p1_life_points,
+                p2LifePoints: y.p2_life_points,
+                p1Deck: x.userDeck,
+                p2Deck: x.userDeck2,
+                p1Hand1: y.p1_hand_1,
+                p1Hand2: y.p1_hand_2,
+                p1Hand3: y.p1_hand_3,
+                p1Hand4: y.p1_hand_4,
+                p1Hand5: y.p1_hand_5,
+                p1Hand6: y.p1_hand_6,
+                p1Hand7: y.p1_hand_7,
+                p2Hand1: y.p2_hand_1,
+                p2Hand2: y.p2_hand_2,
+                p2Hand3: y.p2_hand_3,
+                p2Hand4: y.p2_hand_4,
+                p2Hand5: y.p2_hand_5,
+                p2Hand6: y.p2_hand_6,
+                p2Hand7: y.p2_hand_7
+            })
+        }
     }
 
     getP1Key = () => {
