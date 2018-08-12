@@ -18,7 +18,7 @@ class GameRoom extends Component {
         console.log(game)
         const x = this.props.state
         const y = game.data
-        if (x.playerOne || x.playerTwo) {
+        // if (x.playerOne || x.playerTwo) {
             this.setState({
                 roomNum: y.id,
                 // p1: x.playerOne,
@@ -30,27 +30,37 @@ class GameRoom extends Component {
                 p1Hand1: y.p1_hand_1,
                 p1Hand2: y.p1_hand_2,
                 p1Hand3: y.p1_hand_3,
+                p1Hand4: y.p1_hand_4,
+                p1Hand5: y.p1_hand_5,
+                p1Hand6: y.p1_hand_6,
+                p1Hand7: y.p1_hand_7,
                 p2Hand1: y.p2_hand_1,
                 p2Hand2: y.p2_hand_2,
-                p2Hand3: y.p2_hand_3
+                p2Hand3: y.p2_hand_3,
+                p2Hand4: y.p2_hand_4,
+                p2Hand5: y.p2_hand_5,
+                p2Hand6: y.p2_hand_6,
+                p2Hand7: y.p2_hand_7
             })
-            console.log('hitFirst', this.state.p1Hand1);
-        } else if (!x.playerOne || !x.playerTwo) {
-            this.setState({
-                roomNum: y.id,
-                p1LifePoints: y.p1_life_points,
-                p2LifePoints: y.p2_life_points,
-                p1Deck: x.userDeck,
-                p2Deck: x.userDeck2,
-                p1Hand1: y.p1_hand_1,
-                p1Hand2: y.p1_hand_2,
-                p1Hand3: y.p1_hand_3,
-                p2Hand1: y.p2_hand_1,
-                p2Hand2: y.p2_hand_2,
-                p2Hand3: y.p2_hand_3
-            })
-            console.log('hit2', this.state.p1Hand1);
-        }
+            console.log('hitFirst', this.state);
+        // } 
+        // else if (!x.playerOne || !x.playerTwo) {
+        //     this.setState({
+        //         roomNum: y.id,
+        //         p1LifePoints: y.p1_life_points,
+        //         p2LifePoints: y.p2_life_points,
+        //         p1Deck: x.userDeck,
+        //         p2Deck: x.userDeck2,
+        //         p1Hand1: y.p1_hand_1,
+        //         p1Hand2: y.p1_hand_2,
+        //         p1Hand3: y.p1_hand_3,
+        //         p1Hand4: y.p1_hand_4,
+        //         p2Hand1: y.p2_hand_1,
+        //         p2Hand2: y.p2_hand_2,
+        //         p2Hand3: y.p2_hand_3
+        //     })
+        //     console.log('hit2', this.state.p1Hand1);
+        // }
     }
 
     roomNumber = () => {
@@ -222,7 +232,6 @@ class GameRoom extends Component {
                 <h1>GameRoom</h1>
                 <button onClick={() => this.props.updateGameroom()}>Draw</button>
                 <button onClick={() => this.rerender()}>rerender</button>
-                {/* <div><img src={this.state.p1Hand1} alt='fdgh' /></div> */}
                 <div>
                     {this.p1Card1()}
                     {this.p1Card2()}
