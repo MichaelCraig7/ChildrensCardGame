@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_25_135650) do
+ActiveRecord::Schema.define(version: 2018_07_30_174452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,35 @@ ActiveRecord::Schema.define(version: 2018_07_25_135650) do
     t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
+  create_table "gamerooms", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "card_id"
+    t.string "p1"
+    t.string "p2"
+    t.json "payload"
+    t.integer "room"
+    t.string "p1_hand_1"
+    t.string "p1_hand_2"
+    t.string "p1_hand_3"
+    t.string "p1_hand_4"
+    t.string "p1_hand_5"
+    t.string "p1_hand_6"
+    t.string "p1_hand_7"
+    t.string "p2_hand_1"
+    t.string "p2_hand_2"
+    t.string "p2_hand_3"
+    t.string "p2_hand_4"
+    t.string "p2_hand_5"
+    t.string "p2_hand_6"
+    t.string "p2_hand_7"
+    t.integer "p1_life_points"
+    t.integer "p2_life_points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_gamerooms_on_card_id"
+    t.index ["user_id"], name: "index_gamerooms_on_user_id"
+  end
+
   create_table "games", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,4 +76,6 @@ ActiveRecord::Schema.define(version: 2018_07_25_135650) do
     t.index ["game_id"], name: "index_users_on_game_id"
   end
 
+  add_foreign_key "gamerooms", "cards"
+  add_foreign_key "gamerooms", "users"
 end
