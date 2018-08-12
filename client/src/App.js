@@ -8,6 +8,7 @@ class App extends Component {
 
   state = {
     userDeck: [],
+    userDeck2: [],
     createGamePressed: false,
     acceptGamePressed: false,
     kaibaSelected: false,
@@ -20,8 +21,8 @@ class App extends Component {
     gameRoom: {},
     playerOne: false,
     playerTwo: false,
-    p1LifePoints: 4000,
-    p2LifePoints: 4000,
+    p1LifePoints: 0,
+    p2LifePoints: 0,
     p2Info: {},
     redirectGameRoom: false,
     p1Hand1: '',
@@ -81,7 +82,7 @@ class App extends Component {
     } else if (this.state.acceptGamePressed) {
       const playerObject = await this.setPlayerAndRedirect()
       this.setState({
-        userDeck,
+        userDeck2: userDeck,
         gameNumP2,
         kaibaSelected,
         yugiSelected,
@@ -93,7 +94,7 @@ class App extends Component {
   }
 
   populateDeck = async (deckName) => {
-    if (this.state.userDeck.length === 0) {
+    if (this.state.userDeck.length === 0 || this.state.userDeck2.length === 0) {
       const res = await axios.get(`https://www.ygohub.com/api/set_info?name=Starter Deck: ${deckName}`)
       const cards = res.data.set.language_cards["English (na)"]
       const deckPromise = cards.map(async (card) => {
@@ -168,11 +169,10 @@ class App extends Component {
   }
 
   updateGameroom = async () => {
-    const cards = this.state.userDeck
-    const card = await cards[Math.floor(Math.random() * cards.length)]
-    const cardImage = card.card.image_path
-    console.log(card);
     if (this.state.playerOne) {
+      const cards = this.state.userDeck
+      const card = await cards[Math.floor(Math.random() * cards.length)]
+      const cardImage = card.card.image_path
       if (!this.state.p1Hand1) {
         this.setState({ p1Hand1: card })
         let payload = { ...this.state }
@@ -193,6 +193,9 @@ class App extends Component {
         return update
       }
     } else if (this.state.playerTwo) {
+      const cards = this.state.userDeck2
+      const card = await cards[Math.floor(Math.random() * cards.length)]
+      const cardImage = card.card.image_path
       if (!this.state.p2Hand1) {
         this.setState({ p2Hand1: card })
         let payload = { ...this.state }
