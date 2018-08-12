@@ -81,7 +81,7 @@ class Homepage extends Component {
                     }
                 </CreateGameAndLoop>
 
-                <LeftBox><h1></h1></LeftBox>
+                <LeftBox></LeftBox>
 
                 <div>
                     {x.acceptGamePressed
