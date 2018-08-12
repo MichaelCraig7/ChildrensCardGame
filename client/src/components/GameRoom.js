@@ -9,7 +9,6 @@ class GameRoom extends Component {
     }
 
     componentDidMount() {
-        // this.getGameRoomData()
         this.populateBoard()
     }
 
@@ -17,7 +16,12 @@ class GameRoom extends Component {
         const game = await axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
         const x = this.props.state
         const y = game.data
-        console.log(game)
+        if (this.props.location.key === y.p1) {
+            // set p1DeckState to p1's deck in db
+        }
+        if (this.props.location.key === y.p2) {
+            // set p2DeckState to p2's deck in db
+        }
         if (this.props.state.playerOne || this.props.state.playerTwo) {
             const p1Key = this.getP1Key()
             const p2Key = this.getP2Key()
@@ -94,40 +98,6 @@ class GameRoom extends Component {
 
     roomNumber = () => {
 
-    }
-
-    getGameRoomData = async () => {
-        // const x = this.props.state
-        // const game = await axios.get('/api/games/1/gamerooms/3')
-        // const gameIdP1 = x.gameNum + 1
-        // const gameIdP2 = x.gameId
-        // if (!x.playerOne && !x.playerTwo) {
-
-        // } else if (x.playerOne) {
-        //     const game = await axios.get(`/api/games/1/gamerooms/${gameIdP1}`)
-        //     console.log(game.data.p1_hand_1)
-        //     this.setState({
-        //         gameNumber: game.data.room,
-        //         p1Hand1: game.data.p1_hand_1,
-        //         p1Hand2: game.data.p1_hand_2,
-        //         p1Hand3: game.data.p1_hand_3,
-        //         p2Hand1: game.data.p2_hand_1,
-        //         p2Hand2: game.data.p2_hand_2,
-        //         p2Hand3: game.data.p2_hand_3
-        //     })
-        // } else if (x.playerTwo) {
-        //     const game = await axios.get(`/api/games/1/gamerooms/${gameIdP2}`)
-        //     console.log(game)
-        //     this.setState({
-        //         gameNumber: game.data.room,
-        //         p1Hand1: game.data.p1_hand_1,
-        //         p1Hand2: game.data.p1_hand_2,
-        //         p1Hand3: game.data.p1_hand_3,
-        //         p2Hand1: game.data.p2_hand_1,
-        //         p2Hand2: game.data.p2_hand_2,
-        //         p2Hand3: game.data.p2_hand_3
-        //     })
-        // }
     }
 
     // hand1 = () => {
