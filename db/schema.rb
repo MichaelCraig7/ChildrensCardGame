@@ -37,7 +37,8 @@ ActiveRecord::Schema.define(version: 2018_07_30_174452) do
     t.bigint "card_id"
     t.string "p1"
     t.string "p2"
-    t.json "payload"
+    t.text "p1_deck", default: [], array: true
+    t.text "p2_deck", default: [], array: true
     t.integer "room"
     t.string "p1_hand_1"
     t.string "p1_hand_2"
@@ -53,6 +54,10 @@ ActiveRecord::Schema.define(version: 2018_07_30_174452) do
     t.string "p2_hand_5"
     t.string "p2_hand_6"
     t.string "p2_hand_7"
+    t.string "p1_deck_1"
+    t.string "p1_deck_2"
+    t.string "p1_deck_3"
+    t.string "p1_deck_4"
     t.integer "p1_life_points"
     t.integer "p2_life_points"
     t.datetime "created_at", null: false

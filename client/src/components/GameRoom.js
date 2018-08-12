@@ -25,9 +25,20 @@ class GameRoom extends Component {
         if (this.props.state.playerOne || this.props.state.playerTwo) {
             const p1Key = this.getP1Key()
             const p2Key = this.getP2Key()
+            const p1Deck = this.getP1Deck()
             let payload = { ...this.state }
+            console.log(p1Deck)
             if (p1Key) {
                 payload.p1 = p1Key
+                p1Deck.map(card => {
+                    if (card) {
+                        console.log(card.card.image_path)
+                        console.log(card);
+                        
+                        payload.p1_deck_1 = card.card.image_path
+                        console.log(payload)
+                    }
+                })
             }
             if (p2Key) {
                 payload.p2 = p2Key
@@ -82,6 +93,10 @@ class GameRoom extends Component {
                 p2Hand7: y.p2_hand_7
             })
         }
+    }
+
+    getP1Deck = () => {
+        return this.props.state.userDeck
     }
 
     getP1Key = () => {

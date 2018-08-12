@@ -5,7 +5,8 @@ class CreateGamerooms < ActiveRecord::Migration[5.2]
       t.references :card, foreign_key: true
       t.string :p1
       t.string :p2
-      t.json :payload
+      t.text :p1_deck, array: true, default: []
+      t.text :p2_deck, array: true, default: []
       t.integer :room
       t.string :p1_hand_1
       t.string :p1_hand_2
@@ -21,6 +22,10 @@ class CreateGamerooms < ActiveRecord::Migration[5.2]
       t.string :p2_hand_5
       t.string :p2_hand_6
       t.string :p2_hand_7
+      t.string :p1_deck_1
+      t.string :p1_deck_2
+      t.string :p1_deck_3
+      t.string :p1_deck_4
       t.integer :p1_life_points
       t.integer :p2_life_points
 
