@@ -26,6 +26,10 @@ class CreateGamerooms < ActiveRecord::Migration[5.2]
       t.string :p1_deck_2
       t.string :p1_deck_3
       t.string :p1_deck_4
+      t.string :p2_deck_1
+      t.string :p2_deck_2
+      t.string :p2_deck_3
+      t.string :p2_deck_4
       t.integer :p1_life_points
       t.integer :p2_life_points
 

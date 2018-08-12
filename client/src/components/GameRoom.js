@@ -26,8 +26,8 @@ class GameRoom extends Component {
             const p1Key = this.getP1Key()
             const p2Key = this.getP2Key()
             const p1Deck = this.getP1Deck()
+            const p2Deck = this.getP2Deck()
             let payload = { ...this.state }
-            console.log(p1Deck)
             if (p1Key) {
                 payload.p1 = p1Key
                 payload.p1_deck_1 = p1Deck[0].card.image_path
@@ -48,6 +48,12 @@ class GameRoom extends Component {
             }
             if (p2Key) {
                 payload.p2 = p2Key
+                payload.p2_deck_1 = p2Deck[0].card.image_path
+                payload.p2_deck_2 = p2Deck[1].card.image_path
+                payload.p2_deck_3 = p2Deck[2].card.image_path
+                payload.p2_deck_4 = p2Deck[3].card.image_path
+                console.log(payload);
+                
             }
             const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
             console.log('upd', update)
@@ -109,6 +115,16 @@ class GameRoom extends Component {
             }
         })
         return p1Deck
+    }
+
+    getP2Deck = () => {
+        let p2Deck = []
+        this.props.state.userDeck2.map(card => {
+            if (card) {
+                p2Deck.push(card)
+            }
+        })
+        return p2Deck
     }
 
     getP1Key = () => {

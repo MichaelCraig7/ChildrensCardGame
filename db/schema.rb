@@ -58,6 +58,10 @@ ActiveRecord::Schema.define(version: 2018_07_30_174452) do
     t.string "p1_deck_2"
     t.string "p1_deck_3"
     t.string "p1_deck_4"
+    t.string "p2_deck_1"
+    t.string "p2_deck_2"
+    t.string "p2_deck_3"
+    t.string "p2_deck_4"
     t.integer "p1_life_points"
     t.integer "p2_life_points"
     t.datetime "created_at", null: false
