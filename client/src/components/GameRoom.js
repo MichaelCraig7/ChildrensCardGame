@@ -15,7 +15,7 @@ class GameRoom extends Component {
         this.populateBoard()
         setInterval(() => {
             this.renderer()
-        }, 1000)
+        }, 1250)
     }
 
     renderer = () => {
@@ -25,14 +25,14 @@ class GameRoom extends Component {
             if (this.props.location.key === x.p2) {
                 setInterval(() => {
                     window.location.reload()
-                }, 5000)
+                }, 2500)
                 console.log('ping2');
             }
         } else if (x.turn === false) {
             if (this.props.location.key === x.p1) {
                 setInterval(() => {
                     window.location.reload()
-                }, 5000)
+                }, 2500)
                 console.log('ping3');
 
             }
