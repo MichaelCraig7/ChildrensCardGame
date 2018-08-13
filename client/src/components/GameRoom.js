@@ -5,11 +5,30 @@ import axios from 'axios'
 class GameRoom extends Component {
 
     state = {
-
+        flop: true,
+        p1Turn: true,
+        p2Turn: false,
     }
 
     componentDidMount() {
         this.populateBoard()
+        this.renderer()
+    }
+
+    renderer = () => {
+        if (this.state.p1Turn) {
+            if (this.props.location.key === this.state.p2Key) {
+                setInterval(() => {
+                    window.location.reload()
+                }, 2000)
+            }
+        } else if (this.state.p2turn) {
+            if (this.props.location.key === this.state.p1Key) {
+                setInterval(() => {
+                    window.location.reload()
+                }, 2000)
+            }
+        }
     }
 
     populateBoard = async () => {
@@ -53,7 +72,7 @@ class GameRoom extends Component {
                 payload.p2_deck_3 = p2Deck[2].card.image_path
                 payload.p2_deck_4 = p2Deck[3].card.image_path
                 console.log(payload);
-                
+
             }
             const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
             console.log('upd', update)
@@ -105,6 +124,7 @@ class GameRoom extends Component {
                 p2Hand7: y.p2_hand_7
             })
         }
+        this.p1Card1()
     }
 
     getP1Deck = () => {
@@ -262,8 +282,18 @@ class GameRoom extends Component {
         }
     }
 
-    rerender = () => {
-        this.forceUpdate()
+    completeTurn = () => {
+        if (this.state.p1Turn) {
+            this.setState({
+                p1Turn: false,
+                p2Turn: true
+            })
+        } else if (this.state.p2Turn) {
+            this.setState({
+                p1Turn: true,
+                p2Turn: false
+            })
+        }
     }
 
     render() {
@@ -273,7 +303,7 @@ class GameRoom extends Component {
 
                 <h1>GameRoom</h1>
                 <button onClick={() => this.props.updateGameroom()}>Draw</button>
-                <button onClick={() => this.rerender()}>rerender</button>
+                <button onClick={() => this.completeTurn()}>Turn Complete</button>
                 <div>
                     {this.p1Card1()}
                     {this.p1Card2()}
@@ -292,7 +322,9 @@ class GameRoom extends Component {
                     {this.p2Card6()}
                     {this.p2Card7()}
                 </div>
-
+                <div>
+                    {this.state.flop ? <h1>Player 1 Turn</h1> : <h1>Player 2 Turn</h1>}
+                </div>
             </div>
         );
     }
