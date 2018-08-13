@@ -20,13 +20,13 @@ class GameRoom extends Component {
             if (this.props.location.key === this.state.p2Key) {
                 setInterval(() => {
                     window.location.reload()
-                }, 2000)
+                }, 2500)
             }
         } else if (this.state.p2turn) {
             if (this.props.location.key === this.state.p1Key) {
                 setInterval(() => {
                     window.location.reload()
-                }, 2000)
+                }, 2500)
             }
         }
     }
@@ -323,7 +323,7 @@ class GameRoom extends Component {
                     {this.p2Card7()}
                 </div>
                 <div>
-                    {this.state.flop ? <h1>Player 1 Turn</h1> : <h1>Player 2 Turn</h1>}
+                    {this.state.p1Turn ? <h1>Player 1 Turn</h1> : <h1>Player 2 Turn</h1>}
                 </div>
             </div>
         );
