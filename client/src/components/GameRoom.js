@@ -8,25 +8,32 @@ class GameRoom extends Component {
         flop: true,
         p1Turn: true,
         p2Turn: false,
+        p1: '',
+        p2: ''
     }
 
     componentDidMount() {
         this.populateBoard()
-        this.renderer()
+        setInterval(() => {
+            this.renderer()
+        }, 1000)
     }
 
     renderer = () => {
         if (this.state.p1Turn) {
-            if (this.props.location.key === this.state.p2Key) {
+            if (this.props.location.key === this.state.p2) {
                 setInterval(() => {
                     window.location.reload()
                 }, 2500)
+                console.log('ping2');
             }
         } else if (this.state.p2turn) {
-            if (this.props.location.key === this.state.p1Key) {
+            if (this.props.location.key === this.state.p1) {
                 setInterval(() => {
                     window.location.reload()
                 }, 2500)
+                console.log('ping3');
+
             }
         }
     }
@@ -72,7 +79,6 @@ class GameRoom extends Component {
                 payload.p2_deck_3 = p2Deck[2].card.image_path
                 payload.p2_deck_4 = p2Deck[3].card.image_path
                 console.log(payload);
-
             }
             const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
             console.log('upd', update)
