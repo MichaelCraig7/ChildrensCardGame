@@ -6,8 +6,7 @@ class GameRoom extends Component {
 
     state = {
         flop: true,
-        p1Turn: true,
-        p2Turn: false,
+        turn: '',
         p1: '',
         p2: ''
     }
@@ -20,18 +19,20 @@ class GameRoom extends Component {
     }
 
     renderer = () => {
-        if (this.state.p1Turn) {
-            if (this.props.location.key === this.state.p2) {
+        console.log('ping');
+        const x = this.state
+        if (x.turn === true || x.turn === '' || x.turn === null) {
+            if (this.props.location.key === x.p2) {
                 setInterval(() => {
                     window.location.reload()
-                }, 2500)
+                }, 5000)
                 console.log('ping2');
             }
-        } else if (this.state.p2turn) {
-            if (this.props.location.key === this.state.p1) {
+        } else if (x.turn === false) {
+            if (this.props.location.key === x.p1) {
                 setInterval(() => {
                     window.location.reload()
-                }, 2500)
+                }, 5000)
                 console.log('ping3');
 
             }
@@ -86,6 +87,7 @@ class GameRoom extends Component {
                 roomNum: y.id,
                 p1: p1Key,
                 p2: p2Key,
+                turn: y.turn,
                 p1LifePoints: y.p1_life_points,
                 p2LifePoints: y.p2_life_points,
                 p1Deck: x.userDeck,
@@ -110,6 +112,7 @@ class GameRoom extends Component {
                 roomNum: y.id,
                 p1: y.p1,
                 p2: y.p2,
+                turn: y.turn,
                 p1LifePoints: y.p1_life_points,
                 p2LifePoints: y.p2_life_points,
                 p1Deck: x.userDeck,
@@ -129,8 +132,11 @@ class GameRoom extends Component {
                 p2Hand6: y.p2_hand_6,
                 p2Hand7: y.p2_hand_7
             })
+            let payload = { ...this.state }
+            payload.turn = this.state.turn
+            const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+            console.log(update)
         }
-        this.p1Card1()
     }
 
     getP1Deck = () => {
@@ -289,17 +295,21 @@ class GameRoom extends Component {
     }
 
     completeTurn = () => {
-        if (this.state.p1Turn) {
+        if (this.state.turn === true || this.state.turn === '' || this.state.turn === null) {
             this.setState({
-                p1Turn: false,
-                p2Turn: true
+                turn: false,
             })
-        } else if (this.state.p2Turn) {
+        } else if (this.state.turn === false) {
             this.setState({
-                p1Turn: true,
-                p2Turn: false
+                turn: true,
             })
         }
+        // console.log('turn', this.state.turn)
+        // let payload = { ...this.state }
+        // payload.turn = !this.state.turn
+        // const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+        this.populateBoard()
+        // return update
     }
 
     render() {
