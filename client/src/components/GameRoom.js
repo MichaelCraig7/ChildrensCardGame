@@ -5,6 +5,7 @@ import axios from 'axios'
 class GameRoom extends Component {
 
     state = {
+        game: {},
         flop: true,
         turn: '',
         p1Deck: [],
@@ -63,6 +64,7 @@ class GameRoom extends Component {
         // }
         if (x.playerOne) {
             const p1Deck = await this.getP1Deck()
+            const p1Hand = await this.populateHand()            
             let payload = { ...this.state }
             payload.p1 = this.props.location.key
             payload.p1_deck_1 = p1Deck[0].card.image_path
@@ -70,14 +72,27 @@ class GameRoom extends Component {
             payload.p1_deck_3 = p1Deck[2].card.image_path
             payload.p1_deck_4 = p1Deck[3].card.image_path
             const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+            // let hand = []
+            // hand.push(y.p1_hand_1)
+            // hand.push(y.p1_hand_2)
+            // hand.push(y.p1_hand_3)
+            // hand.push(y.p1_hand_4)
+            // hand.push(y.p1_hand_5)
+            console.log(game.data);
+            console.log(update);
+            
             this.setState({
                 p1: this.props.location.key,
                 p1Deck: p1Deck,
-                turn: true
+                turn: true,
+                game: update.data
+                // p1Hand: hand
             })
         }
         if (x.playerTwo) {
             const p2Deck = await this.getP2Deck()
+            const p2Hand = await this.populateHand()
+            console.log(p2Hand);
             let payload = { ...this.state }
             payload.p2 = this.props.location.key
             payload.p2_deck_1 = p2Deck[0].card.image_path
@@ -87,7 +102,8 @@ class GameRoom extends Component {
             const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
             this.setState({
                 p2: this.props.location.key,
-                p2Deck: p2Deck
+                p2Deck: p2Deck,
+                game: update.data
             })
         }
         if (y.turn === true && val === 'z') {
@@ -366,13 +382,56 @@ class GameRoom extends Component {
         }
     }
 
+    populateHand = async () => {
+        if (this.props.state.playerOne) {
+            console.log('hit1');
+            
+            let hand = []
+            let payload = { ...this.state }
+            for (let i = 1; i < 6; i++) {
+                const cards = this.props.state.userDeck
+                const card = await cards[Math.floor(Math.random() * cards.length)]
+                console.log(card);
+                
+                const cardImage = card.card.image_path
+                hand.push(cardImage)
+            }
+            payload.p1_hand_1 = hand[0]
+            payload.p1_hand_2 = hand[1]
+            payload.p1_hand_3 = hand[2]
+            payload.p1_hand_4 = hand[3]
+            payload.p1_hand_5 = hand[4]
+            const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+            console.log(update);
+            
+            return update
+        }
+        if (this.props.state.playerTwo) {
+            let hand = []
+            let payload = { ...this.state }
+            for (let i = 0; i < 6; i++) {
+                const cards = this.props.state.userDeck2
+                const card = await cards[Math.floor(Math.random() * cards.length)]
+                const cardImage = card.card.image_path
+                hand.push(cardImage)
+            }
+            payload.p2_hand_1 = hand[0]
+            payload.p2_hand_2 = hand[1]
+            payload.p2_hand_3 = hand[2]
+            payload.p2_hand_4 = hand[3]
+            payload.p2_hand_5 = hand[4]
+            const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+            return update
+        }
+    }
+
     render() {
 
         return (
             <div>
 
                 <h1>GameRoom</h1>
-                <button onClick={() => this.props.updateGameroom()}>Draw</button>
+                <button onClick={() => this.draw()}>Draw</button>
                 <button onClick={() => this.completeTurn()}>Turn Complete</button>
                 <button onClick={() => this.changeLife(100)}>-100</button>
                 <button onClick={() => this.changeLife(1000)}>-1000</button>
