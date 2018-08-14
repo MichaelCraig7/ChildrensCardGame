@@ -86,12 +86,12 @@ class GameRoom extends Component {
             payload.p2_deck_4 = p2Deck[3].card.image_path
             const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
             this.setState({
-                p2: payload.p2,
+                p2: this.props.location.key,
                 p2Deck: p2Deck
             })
         }
-        if (y.p1 === y.key && !x.playerOne && !x.playerTwo && val === 'z') {
-            console.log('p2Turn');
+        if (y.turn === true && val === 'z') {
+            console.log('deck changes to p2');
             let currentDeck = []
             currentDeck.push(y.p2_deck_1)
             currentDeck.push(y.p2_deck_2)
@@ -102,8 +102,8 @@ class GameRoom extends Component {
                 currentDeck
             })
         }
-        if (y.p2 === y.key && !x.playerOne && !x.playerTwo && val === 'z') {
-            console.log('p1Turn');
+        if (y.turn === false && val === 'z') {
+            console.log('deck changed to p1');
             let currentDeck = []
             currentDeck.push(y.p1_deck_1)
             currentDeck.push(y.p1_deck_2)
@@ -293,12 +293,14 @@ class GameRoom extends Component {
     }
 
     completeTurn = async () => {
-        console.log('ct');
-
+        console.log('ct')
+        const game = await axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
         let payload = { ...this.state }
         payload.turn = !this.state.turn
         payload.key = this.props.location.key
         const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+        console.log(game.data.p2)
+        console.log(game.data.key)
         this.populateBoard('z')
     }
 
