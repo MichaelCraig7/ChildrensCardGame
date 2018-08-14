@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2018_07_30_174452) do
     t.string "p2"
     t.boolean "turn"
     t.integer "room"
+    t.string "key"
     t.string "p1_hand_1"
     t.string "p1_hand_2"
     t.string "p1_hand_3"

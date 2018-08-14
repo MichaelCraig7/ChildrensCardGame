@@ -21,6 +21,8 @@ class App extends Component {
     gameRoom: {},
     playerOne: false,
     playerTwo: false,
+    p1Key: '',
+    p2Key: '',
     p1LifePoints: 0,
     p2LifePoints: 0,
     p2Info: {},
@@ -135,7 +137,8 @@ class App extends Component {
     }
     const createGame = await axios.post('/api/games/1/gamerooms', {
       user_id: id,
-      p1_life_points: 4000
+      p1_life_points: 4000,
+      p2_life_points: 4000
     })
     return createGame
   }

@@ -7,6 +7,9 @@ class GameRoom extends Component {
     state = {
         flop: true,
         turn: '',
+        p1Deck: [],
+        p2Deck: [],
+        currentDeck: [],
         p1: '',
         p2: ''
     }
@@ -18,101 +21,114 @@ class GameRoom extends Component {
         }, 1250)
     }
 
-    renderer = () => {
-        console.log('ping');
+    renderer = async () => {
+        const game = await axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
         const x = this.state
-        if (x.turn === true || x.turn === '' || x.turn === null) {
-            if (this.props.location.key === x.p2) {
-                setInterval(() => {
-                    window.location.reload()
-                }, 2500)
-                console.log('ping2');
-            }
-        } else if (x.turn === false) {
-            if (this.props.location.key === x.p1) {
-                setInterval(() => {
-                    window.location.reload()
-                }, 2500)
-                console.log('ping3');
-
-            }
+        const y = game.data
+        if (x.p2 || this.props.location.key === y.key) {
+            setInterval(() => {
+                window.location.reload()
+            }, 2500)
+            console.log('ping2');
+        }
+        if (y.p1 === y.key && this.props.location.key === x.p1) {
+            setInterval(() => {
+                window.location.reload()
+            }, 2500)
+            console.log('ping3');
         }
     }
 
-    populateBoard = async () => {
+    populateBoard = async (val) => {
         const game = await axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
         const x = this.props.state
         const y = game.data
-        if (this.props.location.key === y.p1) {
-            // set p1DeckState to p1's deck in db
-        }
-        if (this.props.location.key === y.p2) {
-            // set p2DeckState to p2's deck in db
-        }
-        if (this.props.state.playerOne || this.props.state.playerTwo) {
-            const p1Key = this.getP1Key()
-            const p2Key = this.getP2Key()
-            const p1Deck = this.getP1Deck()
-            const p2Deck = this.getP2Deck()
+        // if (this.props.location.key === y.p1 && val) {
+        //     let payload = { ...this.state }
+        //     payload.p1_life_points = y.p1_life_points - val
+        //     axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+        //     .then(res => {
+        //         this.props.history.push(`/gameroom/${this.props.match.params.id}`)
+        //     })
+        //     return
+        // }
+        // if (this.props.location.key === y.p2 && val) {
+        //     let payload = { ...this.state }
+        //     payload.p2_life_points = y.p2_life_points - val
+        //     axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+        //     .then(res => {
+        //         this.props.history.push(`/gameroom/${this.props.match.params.id}`)
+        //     })
+        //     return
+        // }
+        if (x.playerOne) {
+            const p1Deck = await this.getP1Deck()
             let payload = { ...this.state }
-            if (p1Key) {
-                payload.p1 = p1Key
-                payload.p1_deck_1 = p1Deck[0].card.image_path
-                payload.p1_deck_2 = p1Deck[1].card.image_path
-                payload.p1_deck_3 = p1Deck[2].card.image_path
-                payload.p1_deck_4 = p1Deck[3].card.image_path
-                console.log(payload)
-                // p1Deck.map(card => {
-                //     if (card.index === 1) {
-                //         console.log(card.card.image_path)
-                //         console.log(card)
-                //         payload.p1_deck_1 = card.card.image_path
-                //         console.log(payload)
-                //     } else if (card.index === 2) {
-                //         payload.p1_deck_2 = card.card.image_path
-                //     }
-                // })
-            }
-            if (p2Key) {
-                payload.p2 = p2Key
-                payload.p2_deck_1 = p2Deck[0].card.image_path
-                payload.p2_deck_2 = p2Deck[1].card.image_path
-                payload.p2_deck_3 = p2Deck[2].card.image_path
-                payload.p2_deck_4 = p2Deck[3].card.image_path
-                console.log(payload);
-            }
+            payload.p1 = this.props.location.key
+            payload.p1_deck_1 = p1Deck[0].card.image_path
+            payload.p1_deck_2 = p1Deck[1].card.image_path
+            payload.p1_deck_3 = p1Deck[2].card.image_path
+            payload.p1_deck_4 = p1Deck[3].card.image_path
             const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
-            console.log('upd', update)
             this.setState({
-                roomNum: y.id,
-                p1: p1Key,
-                p2: p2Key,
-                turn: y.turn,
-                p1LifePoints: y.p1_life_points,
-                p2LifePoints: y.p2_life_points,
-                p1Deck: x.userDeck,
-                p2Deck: x.userDeck2,
-                p1Hand1: y.p1_hand_1,
-                p1Hand2: y.p1_hand_2,
-                p1Hand3: y.p1_hand_3,
-                p1Hand4: y.p1_hand_4,
-                p1Hand5: y.p1_hand_5,
-                p1Hand6: y.p1_hand_6,
-                p1Hand7: y.p1_hand_7,
-                p2Hand1: y.p2_hand_1,
-                p2Hand2: y.p2_hand_2,
-                p2Hand3: y.p2_hand_3,
-                p2Hand4: y.p2_hand_4,
-                p2Hand5: y.p2_hand_5,
-                p2Hand6: y.p2_hand_6,
-                p2Hand7: y.p2_hand_7
+                p1: this.props.location.key,
+                p1Deck: p1Deck,
+                turn: true
             })
-        } else {
+        }
+        if (x.playerTwo) {
+            const p2Deck = await this.getP2Deck()
+            let payload = { ...this.state }
+            payload.p2 = this.props.location.key
+            payload.p2_deck_1 = p2Deck[0].card.image_path
+            payload.p2_deck_2 = p2Deck[1].card.image_path
+            payload.p2_deck_3 = p2Deck[2].card.image_path
+            payload.p2_deck_4 = p2Deck[3].card.image_path
+            const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+            this.setState({
+                p2: payload.p2,
+                p2Deck: p2Deck
+            })
+        }
+        if (y.p1 === y.key) {
+            let currentDeck = []
+            currentDeck.push(y.p2_deck_1)
+            currentDeck.push(y.p2_deck_2)
+            currentDeck.push(y.p2_deck_3)
+            currentDeck.push(y.p2_deck_4)
+            this.setState({
+                p1: y.p1,
+                currentDeck
+            })
+        }
+        if (y.p2 === y.key) {
+            let currentDeck = []
+            currentDeck.push(y.p1_deck_1)
+            currentDeck.push(y.p1_deck_2)
+            currentDeck.push(y.p1_deck_3)
+            currentDeck.push(y.p1_deck_4)
+            this.setState({
+                p2: y.p2,
+                currentDeck
+            })
+        }
+
+        // if this.state.turn === true then p1Deck is current deck
+        // if this.state.turn === falase then p2Deck is current deck
+        // when turn button is clicked, location.key for p1 is read and saved
+        // then if p1's location.key equals the stored key, p1 can't do anything
+        // then wheb p2 clicks turn button, location.key for p2 is read and same stuff happens
+        // when location.key no longer matches stored key, that player can draw a card and play turn (user interval)
+        // 
+
+
+
+
+        if (!x.playerOne && !x.playerTwo) {
             this.setState({
                 roomNum: y.id,
                 p1: y.p1,
                 p2: y.p2,
-                turn: y.turn,
                 p1LifePoints: y.p1_life_points,
                 p2LifePoints: y.p2_life_points,
                 p1Deck: x.userDeck,
@@ -158,26 +174,6 @@ class GameRoom extends Component {
         })
         return p2Deck
     }
-
-    getP1Key = () => {
-        if (this.props.state.playerOne) {
-            return this.props.location.key
-        }
-    }
-
-    getP2Key = () => {
-        if (this.props.state.playerTwo) {
-            return this.props.location.key
-        }
-    }
-
-    roomNumber = () => {
-
-    }
-
-    // hand1 = () => {
-
-    // }
 
     p1Card1 = () => {
         // if (this.state.p2) {
@@ -294,22 +290,76 @@ class GameRoom extends Component {
         }
     }
 
-    completeTurn = () => {
-        if (this.state.turn === true || this.state.turn === '' || this.state.turn === null) {
+    completeTurn = async () => {
+        console.log('ct');
+
+        let payload = { ...this.state }
+        payload.turn = !this.state.turn
+        payload.key = this.props.location.key
+        const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+        this.populateBoard(payload.key)
+    }
+
+    // if this.state.turn === true then p1Deck is current deck
+    // if this.state.turn === falase then p2Deck is current deck
+    // when turn button is clicked, location.key for p1 is read and saved
+    // then if p1's location.key equals the stored key, p1 can't do anything
+    // then wheb p2 clicks turn button, location.key for p2 is read and same stuff happens
+    // when location.key no longer matches stored key, that player can draw a card and play turn (user interval)
+
+    // minusLP = async (val) => {
+    //     console.log('minus');
+    //     const game = await axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
+    //     let payload = { ...this.state }
+    //     if (this.props.location.key === game.data.p1) {
+    //         payload.p1_life_points = game.data.p1_life_points - val
+    //         axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+    //             .then(res => {
+    //                 this.props.history.push(`/gameroom/${this.props.match.params.id}`)
+    //             })
+    //         console.log('1', payload);
+    //     } else if (this.props.location.key === game.data.p2) {
+    //         payload.p2_life_points = game.data.p2_life_points - val
+    //         axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+    //         .then(res => {
+    //             this.props.history.push(`/gameroom/${this.props.match.params.id}`)
+    //         })
+    //         console.log('2', payload);
+    //     }
+    //     this.populateBoard()
+    // }
+    changeLife = async (changeLP) => {
+
+
+        const game = await axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
+        const y = game.data
+        console.log('hit');
+        console.log(changeLP);
+        console.log(this.props.location.key);
+        console.log(y.p1);
+
+        if (this.props.location.key === y.p1 && changeLP) {
+            console.log('hit1');
+            let payload = { ...this.state }
+            payload.p1_life_points = y.p1_life_points - changeLP
+            axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+                .then(res => {
+                    this.props.history.push(`/gameroom/${this.props.match.params.id}`)
+                })
             this.setState({
-                turn: false,
+                p1LifePoints: y.p1_life_points
             })
-        } else if (this.state.turn === false) {
-            this.setState({
-                turn: true,
-            })
+            return
         }
-        // console.log('turn', this.state.turn)
-        // let payload = { ...this.state }
-        // payload.turn = !this.state.turn
-        // const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
-        this.populateBoard()
-        // return update
+        if (this.props.location.key === y.p2 && changeLP) {
+            let payload = { ...this.state }
+            payload.p2_life_points = y.p2_life_points - changeLP
+            axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
+                .then(res => {
+                    this.props.history.push(`/gameroom/${this.props.match.params.id}`)
+                })
+            return
+        }
     }
 
     render() {
@@ -320,6 +370,8 @@ class GameRoom extends Component {
                 <h1>GameRoom</h1>
                 <button onClick={() => this.props.updateGameroom()}>Draw</button>
                 <button onClick={() => this.completeTurn()}>Turn Complete</button>
+                <button onClick={() => this.changeLife(100)}>-100</button>
+                <button onClick={() => this.changeLife(1000)}>-1000</button>
                 <div>
                     {this.p1Card1()}
                     {this.p1Card2()}
@@ -339,8 +391,10 @@ class GameRoom extends Component {
                     {this.p2Card7()}
                 </div>
                 <div>
-                    {this.state.p1Turn ? <h1>Player 1 Turn</h1> : <h1>Player 2 Turn</h1>}
+                    {this.state.turn ? <h1>Player 1 Turn</h1> : <h1>Player 2 Turn</h1>}
                 </div>
+                <div>{this.state.p1LifePoints}</div>
+                <div>{this.state.p2LifePoints}</div>
             </div>
         );
     }
