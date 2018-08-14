@@ -90,7 +90,8 @@ class GameRoom extends Component {
                 p2Deck: p2Deck
             })
         }
-        if (y.p1 === y.key) {
+        if (y.p1 === y.key && !x.playerOne && !x.playerTwo && val === 'z') {
+            console.log('p2Turn');
             let currentDeck = []
             currentDeck.push(y.p2_deck_1)
             currentDeck.push(y.p2_deck_2)
@@ -101,7 +102,8 @@ class GameRoom extends Component {
                 currentDeck
             })
         }
-        if (y.p2 === y.key) {
+        if (y.p2 === y.key && !x.playerOne && !x.playerTwo && val === 'z') {
+            console.log('p1Turn');
             let currentDeck = []
             currentDeck.push(y.p1_deck_1)
             currentDeck.push(y.p1_deck_2)
@@ -297,7 +299,7 @@ class GameRoom extends Component {
         payload.turn = !this.state.turn
         payload.key = this.props.location.key
         const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
-        this.populateBoard(payload.key)
+        this.populateBoard('z')
     }
 
     // if this.state.turn === true then p1Deck is current deck
