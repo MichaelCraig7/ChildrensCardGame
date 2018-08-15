@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2018_07_30_174452) do
     t.bigint "card_id"
     t.string "p1"
     t.string "p2"
-    t.boolean "turn"
+    t.string "turn"
     t.integer "room"
     t.string "key"
     t.string "p1_hand_1"

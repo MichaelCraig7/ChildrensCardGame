@@ -5,7 +5,7 @@ class CreateGamerooms < ActiveRecord::Migration[5.2]
       t.references :card, foreign_key: true
       t.string :p1
       t.string :p2
-      t.boolean :turn
+      t.string :turn
       t.integer :room
       t.string :key
       t.string :p1_hand_1

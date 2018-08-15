@@ -16,6 +16,7 @@ class App extends Component {
     gameNumber: 0,
     gameId: 0,
     gameNum: 0,
+    turn: '',
     game: {},
     challengeList: [],
     gameRoom: {},
@@ -138,8 +139,7 @@ class App extends Component {
     const createGame = await axios.post('/api/games/1/gamerooms', {
       user_id: id,
       p1_life_points: 4000,
-      p2_life_points: 4000,
-      turn: true
+      p2_life_points: 4000
     })
     return createGame
   }
