@@ -14,24 +14,27 @@ class GameRoom extends Component {
         p2: ''
     }
 
-    componentDidMount() {
-        this.populateBoard()
+    componentDidMount = async () => {
+        const big = await this.populateBoard()
         setInterval(() => {
             this.renderer()
         }, 1250)
+        return big
     }
 
     renderer = async () => {
         const game = await axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
         const x = this.state
         const y = game.data
-        if (x.p2 || this.props.location.key === y.key) {
+        console.log('ping');
+        
+        if (x.turn === true || this.props.location.key === y.p2) {
             setInterval(() => {
                 window.location.reload()
             }, 2500)
             console.log('ping2');
         }
-        if (y.p1 === y.key && this.props.location.key === x.p1) {
+        if (y.p1 === y.key || this.props.location.key === y.key) {
             setInterval(() => {
                 window.location.reload()
             }, 2500)
@@ -61,7 +64,7 @@ class GameRoom extends Component {
         //     })
         //     return
         // }
-        if (x.playerOne) {
+        if (x.playerOne === true) {
             const p1Deck = await this.getP1Deck()
             const p1Hand = await this.populateHand()
             let payload = { ...this.state }
@@ -79,12 +82,11 @@ class GameRoom extends Component {
             this.setState({
                 p1: this.props.location.key,
                 p1Deck: p1Deck,
-                turn: true,
                 game: update.data,
                 currentDeck
             })
         }
-        else if (x.playerTwo) {
+        else if (x.playerTwo === true) {
             const p2Deck = await this.getP2Deck()
             const p2Hand = await this.populateHand()
             let payload = { ...this.state }
@@ -270,11 +272,18 @@ class GameRoom extends Component {
         console.log('ct')
         const game = await axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
         let payload = { ...this.state }
-        payload.turn = !this.state.turn
+        if (game.data.turn === true) {
+            payload.turn = false
+        }
+        if (game.data.turn === false) {
+            payload.turn = true
+        }
         payload.key = this.props.location.key
         const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
         console.log(game.data.p2)
         console.log(game.data.key)
+        console.log(update);
+        
         this.populateBoard('z', update)
     }
 
@@ -461,6 +470,14 @@ class GameRoom extends Component {
         }
     }
 
+    placement = (image, type) => {
+        // if (type = 'monster') {
+        //     monsters.push(image)
+        // } else if (type = 'magic') {
+        //     magic.push(image)
+        // }
+    }
+
     render() {
 
         // if (this.state.game.data) {
@@ -479,6 +496,8 @@ class GameRoom extends Component {
                             <button onClick={() => this.completeTurn()}>Turn Complete</button>
                             <button onClick={() => this.changeLife(100)}>-100</button>
                             <button onClick={() => this.changeLife(1000)}>-1000</button>
+                            <button onClick={() => this.placement('monster')}>Monster</button>
+                            <button onClick={() => this.placement('magic')}>Spell/Trap</button>
                         </div>
                         <div>
                             <img src={x.p1_hand_1} alt='' />
