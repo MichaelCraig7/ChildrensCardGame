@@ -4,13 +4,13 @@ import styled from 'styled-components'
 
 const Field = styled.div`
     img {
-        height: 20vh
+        height: 15vh
     }
 `
 
 const Hands = styled.div`
     img {
-        height:20vh
+        height:10vh
     }
 `
 const ClickedCard = styled.div`
@@ -227,7 +227,7 @@ class GameRoom extends Component {
             })
             return update
         }
-        else if (y.p2 === y.key && val === 'z') {
+        else if ((val === 'c' && y.key === y.player1Key) || y.p2 === y.key && val === 'z') {
             console.log('deck changes to p2');
             currentDeck.push(y.p2_deck_1)
             currentDeck.push(y.p2_deck_2)
@@ -254,7 +254,7 @@ class GameRoom extends Component {
                 theirMagic
             })
         }
-        else if ((val === 'z' && !y.p1 && !y.p2) || (val === 'z' && y.p2 && !y.key && y.p1 === null)) {
+        else if ((val === 'c' && y.key === y.player2Key) || (val === 'z' && !y.p1 && !y.p2) || (val === 'z' && y.p2 && !y.key && y.p1 === null)) {
             console.log('deck changed to p1');
             currentDeck.push(y.p1_deck_1)
             currentDeck.push(y.p1_deck_2)
@@ -577,6 +577,7 @@ class GameRoom extends Component {
         const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
         this.clickedCard()
         this.populateField()
+        this.populateBoard('c')
         return update
     }
 
@@ -724,6 +725,66 @@ class GameRoom extends Component {
                                         : null
                                     }
                                 </Hands>
+                                <Field className='field'>{this.populateField()}</Field>
+                                <Field>
+                                    <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                    {x.p2Magic1 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Magic1} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Magic2 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Magic2} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Magic3 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Magic3} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Magic4 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Magic4} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+
+                                    }
+                                    {x.p2Magic5 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Magic5} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                </Field>
+                                <Field>
+                                    <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
+                                    {x.p2Monster1 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Monster1} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Monster2 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Monster2} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Monster3 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Monster3} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Monster4 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Monster4} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Monster5 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Monster5} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
+                                </Field>
                                 <div>
                                     {this.state.hand1 ?
                                         <ClickedCard>
@@ -782,7 +843,65 @@ class GameRoom extends Component {
                                         : null
                                     }
                                 </div>
-                                <Field className='field'>{this.populateField()}</Field>
+                                <Field>
+                                    <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
+                                    {x.p1Monster1 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Monster1} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Monster2 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Monster2} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Monster3 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Monster3} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Monster4 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Monster4} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Monster5 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Monster5} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
+                                </Field>
+                                <Field>
+                                    <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                    {x.p1Magic1 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Magic1} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Magic2 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Magic2} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Magic3 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Magic3} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Magic4 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Magic4} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+
+                                    }
+                                    {x.p1Magic5 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Magic5} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                </Field>
                                 <Hands>
                                     <a onClick={() => this.imageClicked('hand1')}><img src={x.p1_hand_1} alt='' /></a>
                                     <a onClick={() => this.imageClicked('hand2')}><img src={x.p1_hand_2} alt='' /></a>
@@ -843,6 +962,68 @@ class GameRoom extends Component {
                                         : null
                                     }
                                 </Hands>
+                                <Field className='field'>{this.populateField()}</Field>
+                                <Field>
+                                    <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+
+                                    {x.p1Magic1 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Magic1} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Magic2 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Magic2} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Magic3 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Magic3} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Magic4 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Magic4} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+
+                                    }
+                                    {x.p1Magic5 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Magic5} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                </Field>
+                                <Field>
+                                    <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
+
+                                    {x.p1Monster1 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Monster1} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Monster2 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Monster2} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Monster3 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Monster3} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Monster4 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Monster4} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p1Monster5 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Monster5} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
+                                </Field>
                                 <div>
                                     {this.state.hand12 ?
                                         <ClickedCard>
@@ -901,7 +1082,66 @@ class GameRoom extends Component {
                                         : null
                                     }
                                 </div>
-                                <Field className='field'>{this.populateField()}</Field>
+                                <Field>
+                                    <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
+
+                                    {x.p2Monster1 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Monster1} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Monster2 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Monster2} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Monster3 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Monster3} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Monster4 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Monster4} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Monster5 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Monster5} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
+                                </Field>
+                                <Field>
+                                    <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                    {x.p2Magic1 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Magic1} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Magic2 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Magic2} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Magic3 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Magic3} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    {x.p2Magic4 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Magic4} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+
+                                    }
+                                    {x.p2Magic5 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Magic5} alt='lkll' /></a>
+                                        :
+                                        <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
+                                    }
+                                    <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                </Field>
                                 <Hands>
                                     <a onClick={() => this.imageClicked('hand12')}><img src={x.p2_hand_1} alt='' /></a>
                                     <a onClick={() => this.imageClicked('hand22')}><img src={x.p2_hand_2} alt='' /></a>
