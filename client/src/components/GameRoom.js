@@ -689,9 +689,6 @@ class GameRoom extends Component {
                             ?
                             <div>
                                 <div>
-                                    {this.state.turn ? <h1>Player 2 Turn</h1> : <h1>Player 1 Turn</h1>}
-                                </div>
-                                <div>
                                     <button onClick={() => this.draw()}>Draw</button>
                                     <button onClick={() => this.completeTurn()}>Turn Complete</button>
                                     <button onClick={() => this.changeLife(100)}>-100</button>
@@ -751,62 +748,6 @@ class GameRoom extends Component {
                                             <a onClick={() => this.clickedCard()}><img src={x.p1_hand_7} alt='' /></a>
                                             <button onClick={() => this.placement(x.p1_hand_7, 'monster')}>Monster</button>
                                             <button onClick={() => this.placement(x.p1_hand_7, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand12 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p2_hand_1} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p2_hand_1, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p2_hand_1, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand22 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p2_hand_2} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p2_hand_2, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p2_hand_2, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand32 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p2_hand_3} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p2_hand_3, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p2_hand_3, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand42 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p2_hand_4} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p2_hand_4, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p2_hand_4, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand52 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p2_hand_5} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p2_hand_5, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p2_hand_5, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand62 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p2_hand_6} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p2_hand_6, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p2_hand_6, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand72 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p2_hand_7} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p2_hand_7, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p2_hand_7, 'magic')}>Spell/Trap</button>
                                         </ClickedCard>
                                         : null
                                     }
@@ -823,13 +764,13 @@ class GameRoom extends Component {
                                 </Hands>
                                 <Field className='field'>{this.populateField()}</Field>
                                 <Hands>
-                                    <a onClick={() => this.imageClicked('hand12')}><img src={x.p2_hand_1} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand22')}><img src={x.p2_hand_2} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand32')}><img src={x.p2_hand_3} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand42')}><img src={x.p2_hand_4} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand52')}><img src={x.p2_hand_5} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand62')}><img src={x.p2_hand_6} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand72')}><img src={x.p2_hand_7} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand12')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand22')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand32')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand42')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand52')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand62')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand72')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
                                 </Hands>
                                 <div>{this.state.p1LifePoints}</div>
                                 <div>{this.state.p2LifePoints}</div>
@@ -839,7 +780,7 @@ class GameRoom extends Component {
                         }
                     </div>
                 )
-            } else if (this.props.location.key === this.gameInfo.player2Key) {
+            } else if (this.props.location.key === this.state.game.data.player2Key) {
                 return (
                     <div>
                         <h1>second</h1>
@@ -847,71 +788,12 @@ class GameRoom extends Component {
                             ?
                             <div>
                                 <div>
-                                    {this.state.turn ? <h1>Player 2 Turn</h1> : <h1>Player 1 Turn</h1>}
-                                </div>
-                                <div>
                                     <button onClick={() => this.draw()}>Draw</button>
                                     <button onClick={() => this.completeTurn()}>Turn Complete</button>
                                     <button onClick={() => this.changeLife(100)}>-100</button>
                                     <button onClick={() => this.changeLife(1000)}>-1000</button>
                                 </div>
                                 <div>
-                                    {this.state.hand1 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p1_hand_1} alt='' /></a >
-                                            <button onClick={() => this.placement(x.p1_hand_1, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p1_hand_1, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand2 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p1_hand_2} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p1_hand_2, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p1_hand_2, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand3 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p1_hand_3} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p1_hand_3, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p1_hand_3, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand4 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p1_hand_4} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p1_hand_4, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p1_hand_4, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand5 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p1_hand_5} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p1_hand_5, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p1_hand_5, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand6 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p1_hand_6} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p1_hand_6, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p1_hand_6, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
-                                    {this.state.hand7 ?
-                                        <ClickedCard>
-                                            <a onClick={() => this.clickedCard()}><img src={x.p1_hand_7} alt='' /></a>
-                                            <button onClick={() => this.placement(x.p1_hand_7, 'monster')}>Monster</button>
-                                            <button onClick={() => this.placement(x.p1_hand_7, 'magic')}>Spell/Trap</button>
-                                        </ClickedCard>
-                                        : null
-                                    }
                                     {this.state.hand12 ?
                                         <ClickedCard>
                                             <a onClick={() => this.clickedCard()}><img src={x.p2_hand_1} alt='' /></a>
@@ -971,13 +853,13 @@ class GameRoom extends Component {
 
                                 </div>
                                 <Hands>
-                                    <a onClick={() => this.imageClicked('hand1')}><img src={x.p1_hand_1} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand2')}><img src={x.p1_hand_2} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand3')}><img src={x.p1_hand_3} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand4')}><img src={x.p1_hand_4} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand5')}><img src={x.p1_hand_5} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand6')}><img src={x.p1_hand_6} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand7')}><img src={x.p1_hand_7} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand1')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand2')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand3')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand4')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand5')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand6')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                    <a onClick={() => this.imageClicked('hand7')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
                                 </Hands>
                                 <Field className='field'>{this.populateField()}</Field>
                                 <Hands>
@@ -1004,9 +886,6 @@ class GameRoom extends Component {
                             ?
                             <div>
                                 <h1>third</h1>
-                                <div>
-                                    {this.state.turn ? <h1>Player 2 Turn</h1> : <h1>Player 1 Turn</h1>}
-                                </div>
                                 <div>
                                     <button onClick={() => this.draw()}>Draw</button>
                                     <button onClick={() => this.completeTurn()}>Turn Complete</button>
