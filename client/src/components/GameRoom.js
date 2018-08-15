@@ -576,7 +576,7 @@ class GameRoom extends Component {
         }
         const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
         this.clickedCard()
-        this.populateBoard()
+        this.populateField()
         return update
     }
 
@@ -694,6 +694,36 @@ class GameRoom extends Component {
                                     <button onClick={() => this.changeLife(100)}>-100</button>
                                     <button onClick={() => this.changeLife(1000)}>-1000</button>
                                 </div>
+                                <Hands>
+                                    {x.p2_hand_1 ?
+                                        <a onClick={() => this.imageClicked('hand12')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                    {x.p2_hand_2 ?
+                                        <a onClick={() => this.imageClicked('hand22')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                    {x.p2_hand_3 ?
+                                        <a onClick={() => this.imageClicked('hand32')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                    {x.p2_hand_4 ?
+                                        <a onClick={() => this.imageClicked('hand42')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                    {x.p2_hand_5 ?
+                                        <a onClick={() => this.imageClicked('hand52')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                    {x.p2_hand_6 ?
+                                        <a onClick={() => this.imageClicked('hand62')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                    {x.p2_hand_7 ?
+                                        <a onClick={() => this.imageClicked('hand72')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                </Hands>
                                 <div>
                                     {this.state.hand1 ?
                                         <ClickedCard>
@@ -751,8 +781,8 @@ class GameRoom extends Component {
                                         </ClickedCard>
                                         : null
                                     }
-
                                 </div>
+                                <Field className='field'>{this.populateField()}</Field>
                                 <Hands>
                                     <a onClick={() => this.imageClicked('hand1')}><img src={x.p1_hand_1} alt='' /></a>
                                     <a onClick={() => this.imageClicked('hand2')}><img src={x.p1_hand_2} alt='' /></a>
@@ -761,16 +791,6 @@ class GameRoom extends Component {
                                     <a onClick={() => this.imageClicked('hand5')}><img src={x.p1_hand_5} alt='' /></a>
                                     <a onClick={() => this.imageClicked('hand6')}><img src={x.p1_hand_6} alt='' /></a>
                                     <a onClick={() => this.imageClicked('hand7')}><img src={x.p1_hand_7} alt='' /></a>
-                                </Hands>
-                                <Field className='field'>{this.populateField()}</Field>
-                                <Hands>
-                                    <a onClick={() => this.imageClicked('hand12')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand22')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand32')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand42')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand52')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand62')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand72')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
                                 </Hands>
                                 <div>{this.state.p1LifePoints}</div>
                                 <div>{this.state.p2LifePoints}</div>
@@ -793,6 +813,36 @@ class GameRoom extends Component {
                                     <button onClick={() => this.changeLife(100)}>-100</button>
                                     <button onClick={() => this.changeLife(1000)}>-1000</button>
                                 </div>
+                                <Hands>
+                                    {x.p1_hand_1 ?
+                                        <a onClick={() => this.imageClicked('hand1')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                    {x.p1_hand_2 ?
+                                        <a onClick={() => this.imageClicked('hand2')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                    {x.p1_hand_3 ?
+                                        <a onClick={() => this.imageClicked('hand3')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                    {x.p1_hand_4 ?
+                                        <a onClick={() => this.imageClicked('hand4')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                    {x.p1_hand_5 ?
+                                        <a onClick={() => this.imageClicked('hand5')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                    {x.p1_hand_6 ?
+                                        <a onClick={() => this.imageClicked('hand6')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                    {x.p1_hand_7 ?
+                                        <a onClick={() => this.imageClicked('hand7')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
+                                        : null
+                                    }
+                                </Hands>
                                 <div>
                                     {this.state.hand12 ?
                                         <ClickedCard>
@@ -850,17 +900,7 @@ class GameRoom extends Component {
                                         </ClickedCard>
                                         : null
                                     }
-
                                 </div>
-                                <Hands>
-                                    <a onClick={() => this.imageClicked('hand1')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand2')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand3')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand4')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand5')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand6')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                    <a onClick={() => this.imageClicked('hand7')}><img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='' /></a>
-                                </Hands>
                                 <Field className='field'>{this.populateField()}</Field>
                                 <Hands>
                                     <a onClick={() => this.imageClicked('hand12')}><img src={x.p2_hand_1} alt='' /></a>
