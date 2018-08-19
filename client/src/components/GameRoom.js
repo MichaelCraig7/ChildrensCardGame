@@ -54,7 +54,7 @@ class GameRoom extends Component {
         const big = await this.populateBoard()
         setInterval(() => {
             this.renderer()
-        }, 1250)
+        }, 1500)
         return big
     }
 
@@ -64,17 +64,20 @@ class GameRoom extends Component {
         const y = game.data
         console.log('ping');
 
-        if (x.turn === true || this.props.location.key === y.p2) {
-            setInterval(() => {
-                window.location.reload()
-            }, 5000)
-            console.log('ping2');
-        }
-        if (y.p1 === y.key || this.props.location.key === y.key) {
-            setInterval(() => {
-                window.location.reload()
-            }, 5000)
-            console.log('ping3');
+        // if (x.turn === true || this.props.location.key === y.p2) {
+            // setInterval(() => {
+                this.populateBoard()
+            // }, 5000)
+            // console.log('ping2');
+        // }
+        // if (y.p1 === y.key || this.props.location.key === y.key) {
+            // setInterval(() => {
+            //     this.populateBoard()
+            // }, 5000)
+            // console.log('ping3');
+        // }
+        if (x.playerOne || x.playerTwo) {
+            window.location.reload()
         }
     }
 
@@ -754,7 +757,7 @@ class GameRoom extends Component {
                                         :
                                         <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
                                     }
-                                    <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                    <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
                                 </Field>
                                 <Field>
                                     <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
@@ -873,7 +876,7 @@ class GameRoom extends Component {
                                     <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
                                 </Field>
                                 <Field>
-                                    <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                    <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
                                     {x.p1Magic1 ?
                                         <a onClick={() => this.imageClicked('hand1')}><img src={x.p1Magic1} alt='lkll' /></a>
                                         :
@@ -992,7 +995,7 @@ class GameRoom extends Component {
                                         :
                                         <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
                                     }
-                                    <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                    <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
                                 </Field>
                                 <Field>
                                     <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
@@ -1113,7 +1116,7 @@ class GameRoom extends Component {
                                     <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
                                 </Field>
                                 <Field>
-                                    <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
                                     {x.p2Magic1 ?
                                         <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Magic1} alt='lkll' /></a>
                                         :
