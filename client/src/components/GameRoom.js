@@ -265,13 +265,13 @@ class GameRoom extends Component {
         }
     }
 
-
     getP1Deck = () => {
         let p1Deck = []
         this.props.state.userDeck.map(card => {
             if (card) {
                 p1Deck.push(card)
             }
+            return p1Deck
         })
         return p1Deck
     }
@@ -282,6 +282,7 @@ class GameRoom extends Component {
             if (card) {
                 p2Deck.push(card)
             }
+            return p2Deck
         })
         return p2Deck
     }
@@ -589,8 +590,6 @@ class GameRoom extends Component {
                             ?
                             <div>
                                 <div>
-                                    <button onClick={() => this.draw()}>Draw</button>
-                                    <button onClick={() => this.completeTurn()}>Turn Complete</button>
                                     <button onClick={() => this.changeLife(100)}>-100</button>
                                     <button onClick={() => this.changeLife(1000)}>-1000</button>
                                 </div>
@@ -800,6 +799,8 @@ class GameRoom extends Component {
                                         <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
                                     }
                                     <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                    <button onClick={() => this.draw()}>Draw</button>
+                                    <button onClick={() => this.completeTurn()}>Turn Complete</button>
                                 </Field>
                                 <Hands>
                                     <a onClick={() => this.imageClicked('hand1')}><img src={x.p1_hand_1} alt='' /></a>
@@ -826,8 +827,6 @@ class GameRoom extends Component {
                             ?
                             <div>
                                 <div>
-                                    <button onClick={() => this.draw()}>Draw</button>
-                                    <button onClick={() => this.completeTurn()}>Turn Complete</button>
                                     <button onClick={() => this.changeLife(100)}>-100</button>
                                     <button onClick={() => this.changeLife(1000)}>-1000</button>
                                 </div>
@@ -1040,6 +1039,8 @@ class GameRoom extends Component {
                                         <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
                                     }
                                     <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                    <button onClick={() => this.draw()}>Draw</button>
+                                    <button onClick={() => this.completeTurn()}>Turn Complete</button>
                                 </Field>
                                 <Hands>
                                     <a onClick={() => this.imageClicked('hand12')}><img src={x.p2_hand_1} alt='' /></a>
