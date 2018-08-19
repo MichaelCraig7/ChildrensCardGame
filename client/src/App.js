@@ -46,6 +46,9 @@ class App extends Component {
 
   componentDidMount() {
     this.challengeCreation()
+    setInterval(() => {
+      this.challengeCreation()
+    }, 2500)
   }
 
   createGame = () => {

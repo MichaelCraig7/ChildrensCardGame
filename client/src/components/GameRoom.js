@@ -53,6 +53,7 @@ class GameRoom extends Component {
     componentDidMount = async () => {
         setInterval(() => {
             this.populateBoard()
+            console.log('ping')
         }, 1500)
     }
 
@@ -205,7 +206,7 @@ class GameRoom extends Component {
             })
             return update
         }
-        else if ((val === 'c' && y.key === y.player1Key) || y.p2 === y.key && val === 'z') {
+        else if ((val === 'c' && y.key === y.player1Key) || (y.p2 === y.key && val === 'z')) {
             console.log('deck changes to p2');
             currentDeck.push(y.p2_deck_1)
             currentDeck.push(y.p2_deck_2)
@@ -610,8 +611,6 @@ class GameRoom extends Component {
     }
 
     populateField = () => {
-        console.log('mons', this.state.yourMonsters);
-
         const yourMonsters = this.state.yourMonsters.map((monster, i) => {
             return <div key={i}><img src={monster} alt='omg' /></div>
         })
@@ -638,10 +637,10 @@ class GameRoom extends Component {
 
         const x = this.state.game.data
 
-        if (!this.state.game.data && (this.state.playerOne || this.state.playerTwo)) {
+        if (!this.state.game.data && (this.props.state.playerOne || this.props.state.playerTwo)) {
             return <button onClick={() => window.location.reload()}>Ready</button>
         }
-        if (!this.state.game.data) {
+        if (!this.state.game.data && (!this.props.state.playerOne && !this.props.state.playerTwo)) {
             return 'Loading...'
         } else if (this.state.game.data) {
             if (this.state.game && this.props.location.key === this.state.game.data.player1Key) {
