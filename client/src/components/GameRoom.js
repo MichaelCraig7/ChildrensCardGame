@@ -85,10 +85,7 @@ class GameRoom extends Component {
         //     return
         // }
         if (x.playerOne === true) {
-            console.log('doh');
-
             const p1Deck = await this.getP1Deck()
-            const p1Hand = await this.populateHand()
             let payload = { ...this.state }
             payload.p1 = this.props.location.key
             payload.player1Key = this.props.location.key
@@ -149,10 +146,7 @@ class GameRoom extends Component {
             return update
         }
         else if (x.playerTwo === true) {
-            console.log('good');
-
             const p2Deck = await this.getP2Deck()
-            const p2Hand = await this.populateHand()
             let payload = { ...this.state }
             payload.p2 = this.props.location.key
             payload.player1Key = y.player1Key
@@ -367,61 +361,6 @@ class GameRoom extends Component {
                     this.props.history.push(`/gameroom/${this.props.match.params.id}`)
                 })
             return
-        }
-    }
-
-    populateHand = async () => {
-        if (this.props.state.playerOne) {
-            console.log('hit1');
-
-            let hand = []
-            let payload = { ...this.state }
-            for (let i = 1; i < 6; i++) {
-                const deck = this.props.state.userDeck
-                let cards = []
-                deck.map(card => {
-                    if (card) {
-                        cards.push(card)
-                    }
-                })
-                const card = await cards[Math.floor(Math.random() * cards.length)]
-                console.log(card);
-
-                const cardImage = card.card.image_path
-                hand.push(cardImage)
-            }
-            payload.p1_hand_1 = hand[0]
-            payload.p1_hand_2 = hand[1]
-            payload.p1_hand_3 = hand[2]
-            payload.p1_hand_4 = hand[3]
-            payload.p1_hand_5 = hand[4]
-            const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
-            console.log(update);
-
-            return update
-        }
-        if (this.props.state.playerTwo) {
-            let hand = []
-            let payload = { ...this.state }
-            for (let i = 0; i < 6; i++) {
-                const deck = this.props.state.userDeck2
-                let cards = []
-                deck.map(card => {
-                    if (card) {
-                        cards.push(card)
-                    }
-                })
-                const card = await cards[Math.floor(Math.random() * cards.length)]
-                const cardImage = card.card.image_path
-                hand.push(cardImage)
-            }
-            payload.p2_hand_1 = hand[0]
-            payload.p2_hand_2 = hand[1]
-            payload.p2_hand_3 = hand[2]
-            payload.p2_hand_4 = hand[3]
-            payload.p2_hand_5 = hand[4]
-            const update = await axios.patch(`/api/games/1/gamerooms/${this.props.match.params.id}`, payload)
-            return update
         }
     }
 
