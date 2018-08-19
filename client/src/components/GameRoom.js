@@ -51,34 +51,9 @@ class GameRoom extends Component {
     }
 
     componentDidMount = async () => {
-        const big = await this.populateBoard()
         setInterval(() => {
-            this.renderer()
+            this.populateBoard()
         }, 1500)
-        return big
-    }
-
-    renderer = async () => {
-        const game = await axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
-        const x = this.state
-        const y = game.data
-        console.log('ping');
-
-        // if (x.turn === true || this.props.location.key === y.p2) {
-            // setInterval(() => {
-                this.populateBoard()
-            // }, 5000)
-            // console.log('ping2');
-        // }
-        // if (y.p1 === y.key || this.props.location.key === y.key) {
-            // setInterval(() => {
-            //     this.populateBoard()
-            // }, 5000)
-            // console.log('ping3');
-        // }
-        if (x.playerOne || x.playerTwo) {
-            window.location.reload()
-        }
     }
 
     populateBoard = async (val, updated) => {
@@ -637,17 +612,17 @@ class GameRoom extends Component {
     populateField = () => {
         console.log('mons', this.state.yourMonsters);
 
-        const yourMonsters = this.state.yourMonsters.map(monster => {
-            return <img src={monster} alt='omg' />
+        const yourMonsters = this.state.yourMonsters.map((monster, i) => {
+            return <div key={i}><img src={monster} alt='omg' /></div>
         })
-        const yourMagic = this.state.yourMagic.map(magic => {
-            return <img src={magic} alt='omg' />
+        const yourMagic = this.state.yourMagic.map((magic, i) => {
+            return <div key={i}><img src={magic} alt='omg' /></div>
         })
-        const theirMonsters = this.state.theirMonsters.map(monster => {
-            return <img src={monster} alt='omg' />
+        const theirMonsters = this.state.theirMonsters.map((monster, i) => {
+            return <div key={i}><img src={monster} alt='omg' /></div>
         })
-        const theirMagic = this.state.theirMagic.map(magic => {
-            return <img src={magic} alt='omg' />
+        const theirMagic = this.state.theirMagic.map((magic, i) => {
+            return <div key={i}><img src={magic} alt='omg' /></div>
         })
         return (
             <div>
@@ -659,32 +634,15 @@ class GameRoom extends Component {
         )
     }
 
-    gameInfo = () => {
-        axios.get(`/api/games/1/gamerooms/${this.props.match.params.id}`)
-            .then(res => {
-                console.log(res);
-            })
-    }
-
-    //   axios.get(`/api/users/${userId}`).then(res => {
-    //     this.setState({
-    //       users: res.data
-    //     })
-    //   })
-
     render() {
-        const getStuff = async () => {
-            const gameInfo = await this.gameInfo()
-            return gameInfo
-        }
-        const ff = getStuff()
-        console.log('gameinfo', ff);
 
         const x = this.state.game.data
-        console.log('yoyo', this.state);
 
+        if (!this.state.game.data && (this.state.playerOne || this.state.playerTwo)) {
+            return <button onClick={() => window.location.reload()}>Ready</button>
+        }
         if (!this.state.game.data) {
-            return null
+            return 'Loading...'
         } else if (this.state.game.data) {
             if (this.state.game && this.props.location.key === this.state.game.data.player1Key) {
                 return (
@@ -1116,7 +1074,7 @@ class GameRoom extends Component {
                                     <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
                                 </Field>
                                 <Field>
-                                <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
+                                    <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='deck' />
                                     {x.p2Magic1 ?
                                         <a onClick={() => this.imageClicked('hand1')}><img src={x.p2Magic1} alt='lkll' /></a>
                                         :
