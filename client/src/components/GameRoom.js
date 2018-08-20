@@ -2,6 +2,16 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 
+const Wrapper = styled.div`
+    display: grid;
+    grid-template: 1fr / 10vw 80vw 10vw;
+`
+
+const PlayerView = styled.div`
+    grid-area: 1 / 2 / span 1 / span 1;
+    text-align: center;
+`
+
 const Field = styled.div`
     img {
         height: 15vh
@@ -585,10 +595,11 @@ class GameRoom extends Component {
         } else if (this.state.game.data) {
             if (this.state.game && this.props.location.key === this.state.game.data.player1Key) {
                 return (
-                    <div><h1>first</h1>
+                    <Wrapper>
                         {this.state.game.data
                             ?
-                            <div>
+                            <PlayerView>
+                            <h1>Player One</h1>
                                 <div>
                                     <button onClick={() => this.changeLife(100)}>-100</button>
                                     <button onClick={() => this.changeLife(1000)}>-1000</button>
@@ -799,9 +810,9 @@ class GameRoom extends Component {
                                         <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
                                     }
                                     <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                </Field>
                                     <button onClick={() => this.draw()}>Draw</button>
                                     <button onClick={() => this.completeTurn()}>Turn Complete</button>
-                                </Field>
                                 <Hands>
                                     <a onClick={() => this.imageClicked('hand1')}><img src={x.p1_hand_1} alt='' /></a>
                                     <a onClick={() => this.imageClicked('hand2')}><img src={x.p1_hand_2} alt='' /></a>
@@ -813,19 +824,19 @@ class GameRoom extends Component {
                                 </Hands>
                                 <div>{this.state.p1LifePoints}</div>
                                 <div>{this.state.p2LifePoints}</div>
-                            </div>
+                            </PlayerView>
                             :
                             <button onClick={() => window.location.reload()}>Ready</button>
                         }
-                    </div>
+                    </Wrapper>
                 )
             } else if (this.props.location.key === this.state.game.data.player2Key) {
                 return (
-                    <div>
-                        <h1>second</h1>
+                    <Wrapper>
                         {this.state.game.data
                             ?
-                            <div>
+                            <PlayerView>
+                            <h1>Player Two</h1>
                                 <div>
                                     <button onClick={() => this.changeLife(100)}>-100</button>
                                     <button onClick={() => this.changeLife(1000)}>-1000</button>
@@ -1039,9 +1050,9 @@ class GameRoom extends Component {
                                         <img src={'http://fc00.deviantart.net/fs70/f/2010/109/a/6/Trading_Card_Template_Back_by_BlackCarrot1129.png'} alt='' />
                                     }
                                     <img src={'https://ih1.redbubble.net/image.413906047.1240/pp,550x550.u3.jpg'} alt='deck' />
+                                </Field>
                                     <button onClick={() => this.draw()}>Draw</button>
                                     <button onClick={() => this.completeTurn()}>Turn Complete</button>
-                                </Field>
                                 <Hands>
                                     <a onClick={() => this.imageClicked('hand12')}><img src={x.p2_hand_1} alt='' /></a>
                                     <a onClick={() => this.imageClicked('hand22')}><img src={x.p2_hand_2} alt='' /></a>
@@ -1053,18 +1064,18 @@ class GameRoom extends Component {
                                 </Hands>
                                 <div>{this.state.p1LifePoints}</div>
                                 <div>{this.state.p2LifePoints}</div>
-                            </div>
+                            </PlayerView>
                             :
                             <button onClick={() => window.location.reload()}>Ready</button>
                         }
-                    </div>
+                    </Wrapper>
                 )
             } else {
                 return (
-                    <div>
+                    <Wrapper>
                         {this.state.game.data
                             ?
-                            <div>
+                            <PlayerView>
                                 <h1>third</h1>
                                 <div>
                                     <button onClick={() => this.draw()}>Draw</button>
@@ -1208,11 +1219,11 @@ class GameRoom extends Component {
                                 </Hands>
                                 <div>{this.state.p1LifePoints}</div>
                                 <div>{this.state.p2LifePoints}</div>
-                            </div>
+                            </PlayerView>
                             :
                             <button onClick={() => window.location.reload()}>Ready</button>
                         }
-                    </div>
+                    </Wrapper>
                 )
             }
         }
