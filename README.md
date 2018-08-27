@@ -10,9 +10,9 @@ For the first week of development, I decided that creating a player's ability to
 ### Technologies
 
 
-Languages: Ruby, JavaScript
+Languages: Ruby, JavaScript, HTML, CSS
 
-Other: Rails, Styled Components
+Other: React.js, Rails, Styled Components
 
 Editor: Visual Studio Code
 
